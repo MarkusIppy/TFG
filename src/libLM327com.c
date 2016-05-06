@@ -324,28 +324,28 @@ extern "C" {
         char hexadecimal[databyte + 2][3];
         switch (databyte) {
             case 1:
-                sscanf(answer, "%2s %2s %2s ", &hexadecimal[0], &hexadecimal[1], &hexadecimal[2]);
+                sscanf(answer, "%2s %2s %2s ", (char *) &hexadecimal[0], (char *) &hexadecimal[1], (char *) &hexadecimal[2]);
                 *A = hex2int(hexadecimal[2]);
                 *B = 0;
                 *C = 0;
                 *D = 0;
                 break;
             case 2:
-                sscanf(answer, "%2s %2s %2s %2s ", &hexadecimal[0], &hexadecimal[1], &hexadecimal[2], &hexadecimal[3]);
+                sscanf(answer, "%2s %2s %2s %2s ", (char *) &hexadecimal[0], (char *) &hexadecimal[1], (char *) &hexadecimal[2], (char *) &hexadecimal[3]);
                 *A = hex2int(hexadecimal[2]);
                 *B = hex2int(hexadecimal[3]);
                 *C = 0;
                 *D = 0;
                 break;
             case 3:
-                sscanf(answer, "%2s %2s %2s %2s %2s ", &hexadecimal[0], &hexadecimal[1], &hexadecimal[2], &hexadecimal[3], &hexadecimal[4]);
+                sscanf(answer, "%2s %2s %2s %2s %2s ", (char *) &hexadecimal[0], (char *) &hexadecimal[1], (char *) &hexadecimal[2], (char *) &hexadecimal[3], (char *) &hexadecimal[4]);
                 *A = hex2int(hexadecimal[2]);
                 *B = hex2int(hexadecimal[3]);
                 *C = hex2int(hexadecimal[4]);
                 *D = 0;
                 break;
             case 4:
-                sscanf(answer, "%2s %2s %2s %2s %2s %2s ", &hexadecimal[0], &hexadecimal[1], &hexadecimal[2], &hexadecimal[3], &hexadecimal[4], &hexadecimal[5]);
+                sscanf(answer, "%2s %2s %2s %2s %2s %2s ", (char *) &hexadecimal[0], (char *) &hexadecimal[1], (char *) &hexadecimal[2], (char *) &hexadecimal[3], (char *) &hexadecimal[4], (char *) &hexadecimal[5]);
                 *A = hex2int(hexadecimal[2]);
                 *B = hex2int(hexadecimal[3]);
                 *C = hex2int(hexadecimal[4]);
@@ -354,6 +354,17 @@ extern "C" {
         }
     }
 
+    /* This function takes the command which you want to know the information
+     * from, writes it into the OBD, reads the answer, translates it into human
+     * readable information.
+     * Arguments:
+     *              fd: file descriptor.
+     *              hexadecimal: hexadecimal identification number of the 
+     *                           command.
+     *              answer: where the final value is going to be stored.
+     * Return value:
+     *              n: integer that indicates whether an error ocurred.  
+     */
     int read_parameter(int fd, int hexadecimal, char *answer) {
         int n, A, B, C, D, finalvalue;
         char buffer[HEXLENGTH];

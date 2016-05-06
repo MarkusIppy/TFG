@@ -4,4 +4,13 @@
         <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
     </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/Fernando/NetBeansProjects/TFG/include/OBDparameters.h</file>
+            <file>file:/Users/Fernando/NetBeansProjects/TFG/src/main.c</file>
+            <file>file:/Users/Fernando/NetBeansProjects/TFG/src/libLM327com.c</file>
+            <file>file:/Users/Fernando/NetBeansProjects/TFG/include/libLM327com.h</file>
+        </group>
+    </open-files>
 </project-private>

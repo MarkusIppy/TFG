@@ -30,7 +30,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>src</Elem>
+    <Elem>include</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -41,11 +41,6 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <incDir>
-            <pElem>include</pElem>
-          </incDir>
-        </cTool>
       </compileType>
       <item path="include/OBDparameters.h" ex="false" tool="3" flavor2="0">
       </item>
