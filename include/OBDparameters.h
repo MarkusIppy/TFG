@@ -8,9 +8,9 @@
  * through OBD.
  */
 #ifndef OBDPARAMETERS_H
-#define	OBDPARAMETERS_H
+#define OBDPARAMETERS_H
 
-#ifdef	__cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -254,8 +254,8 @@ extern "C" {
 #define P_IN_MANIF_TEMP     0x0187    ///
 
 
-#ifdef	__cplusplus
+#ifdef __cplusplus
 }
 #endif
 
-#endif	/* OBDPARAMETERS_H */
+#endif /* OBDPARAMETERS_H */

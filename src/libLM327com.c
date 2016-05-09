@@ -295,8 +295,8 @@ extern "C" {
     }
 
     void obd_appendvalue(OBD_vallist *list, OBD_value *value) {
-        list->last->next = value;
         list->last = value;
+        list->last->next = value;
         value->next = NULL;
     }
 
