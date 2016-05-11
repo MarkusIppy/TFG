@@ -73,6 +73,7 @@ extern "C" {
 
         union {
             int i;
+            float w;
             unsigned long flags;
             double d;
             char str[OBDV_MAXSTR];
@@ -99,7 +100,7 @@ extern "C" {
     void obd_appendvalue(OBD_vallist *list, OBD_value *value);
     int hex2int(char *answer);
     void separate_string(char *answer, int databyte, int *A, int *B, int *C, int *D);
-    int read_parameter(int fd, int hexadecimal, char *answer);
+    int read_parameter(int fd, int hexadecimal, char *answer, OBD_value *value);
 #ifdef __cplusplus
 }
 #endif

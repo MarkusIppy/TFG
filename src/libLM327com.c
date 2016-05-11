@@ -365,25 +365,61 @@ extern "C" {
      * Return value:
      *              n: integer that indicates whether an error ocurred.  
      */
-    int read_parameter(int fd, int hexadecimal, char *answer) {
+    int read_parameter(int fd, int hexadecimal, char *answer, OBD_value *value) {
         int n, A, B, C, D, finalvalue;
         char buffer[HEXLENGTH];
         sprintf(buffer, "%04X", hexadecimal);
         //        itoa(hexadecimal, buffer, 16);
         switch (hexadecimal) {
-            case 0x010D:
+            case 0x0104:
                 n = write_obdmsg(fd, buffer);
                 n = read_msg(fd, answer, MAX_ANSWER, 0);
                 separate_string(answer, 1, &A, &B, &C, &D);
-                finalvalue = A;
-                sprintf(answer, "%d", finalvalue);
+                value->obdv_parameter = hexadecimal;
+                value->obdv_ts = time(NULL);
+                value->obdv_value.w = 100 * A / 255;
+                sprintf(answer, "%f", value->obdv_value.w);
+                strncpy(value->obdv_value.str, answer, OBDV_MAXSTR);
+                break;
+            case 0x0105:
+                n = write_obdmsg(fd, buffer);
+                n = read_msg(fd, answer, MAX_ANSWER, 0);
+                separate_string(answer, 1, &A, &B, &C, &D);
+                value->obdv_parameter = hexadecimal;
+                value->obdv_ts = time(NULL);
+                value->obdv_value.i = A - 40;
+                sprintf(answer, "%d", value->obdv_value.i);
+                strncpy(value->obdv_value.str, answer, OBDV_MAXSTR);
+                break;
+            case 0x010B:
+                n = write_obdmsg(fd, buffer);
+                n = read_msg(fd, answer, MAX_ANSWER, 0);
+                separate_string(answer, 1, &A, &B, &C, &D);
+                value->obdv_parameter = hexadecimal;
+                value->obdv_ts = time(NULL);
+                value->obdv_value.i = A;
+                sprintf(answer, "%d", value->obdv_value.i);
+                strncpy(value->obdv_value.str, answer, OBDV_MAXSTR);
                 break;
             case 0x010C:
                 n = write_obdmsg(fd, buffer);
                 n = read_msg(fd, answer, MAX_ANSWER, 0);
                 separate_string(answer, 2, &A, &B, &C, &D);
-                finalvalue = (256 * A + B) / 4;
-                sprintf(answer, "%d", finalvalue);
+                value->obdv_parameter = hexadecimal;
+                value->obdv_ts = time(NULL);
+                value->obdv_value.w = (256 * A + B) / 4;
+                sprintf(answer, "%f", value->obdv_value.w);
+                strncpy(value->obdv_value.str, answer, OBDV_MAXSTR);
+                break;
+            case 0x010D:
+                n = write_obdmsg(fd, buffer);
+                n = read_msg(fd, answer, MAX_ANSWER, 0);
+                separate_string(answer, 1, &A, &B, &C, &D);
+                value->obdv_parameter = hexadecimal;
+                value->obdv_ts = time(NULL);
+                value->obdv_value.i = A;
+                sprintf(answer, "%d", value->obdv_value.i);
+                strncpy(value->obdv_value.str, answer, OBDV_MAXSTR);
                 break;
         }
         return n;

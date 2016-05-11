@@ -51,10 +51,11 @@ int main() {
         for (i = 0; i <= 4; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
-                n = read_parameter(fd, ENGINE_RPM, answer);
-                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
-                obd_appendvalue(&lista_val, values[i]);
-                values[i]->obdv_ts = time(NULL);
+                n = read_parameter(fd, ENGINE_RPM, answer, values[i]);
+                //                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
+                //                obd_appendvalue(&lista_val, values[i]);
+                //                values[i]->obdv_ts = time(NULL);
+                //                values[i]->obdv_parameter = ENGINE_RPM;
                 timestamp(answer, fp);
                 sleep(1);
             }
