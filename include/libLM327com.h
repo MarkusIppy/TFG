@@ -45,6 +45,7 @@ extern "C" {
 #error "Unknown compiler"
 #endif
 
+#include "OBDparameters.h"
 #define HEXLENGTH 5
 #define ATMSGLEN 500
 #define OBDMSGLEN 500
@@ -86,9 +87,10 @@ extern "C" {
     } OBD_vallist;
 
 
-
-    void timestamp(char *buffer, FILE *fp);
+    char *cmd_description(t_obdcmdcode cmd);
+    int cmd_fields(t_obdcmdcode cmd);
     void read_timeout(int sig);
+    void timestamp(char *buffer, FILE *fp, int parameter);
     int openOBD_port();
     int write_port(int fd, char *buffer, int l);
     int write_atmsg(int fd, char *msg);
@@ -99,8 +101,9 @@ extern "C" {
     OBD_value *obd_newvalue();
     void obd_appendvalue(OBD_vallist *list, OBD_value *value);
     int hex2int(char *answer);
-    void separate_string(char *answer, int databyte, int *A, int *B, int *C, int *D);
+    int separate_string(char *answer, unsigned int *Cack, unsigned int *A, unsigned int *B, unsigned int *C, unsigned int *D);
     int read_parameter(int fd, int hexadecimal, char *answer, OBD_value *value);
+
 #ifdef __cplusplus
 }
 #endif
