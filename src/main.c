@@ -10,10 +10,10 @@
 #define OBDV_MAXSTR 32
 
 int main() {
-    int fd, i, n, status, parameter;
+    int fd, i = 0, j, n, status, parameter;
     char answer[MAX_ANSWER];
     FILE * fp;
-    fp = fopen("file.txt", "w+");
+    fp = fopen("file.json", "w+");
     OBD_value * values[10000]; //TODO change to constant
     OBD_vallist lista_val;
     OBD_value *value;
@@ -48,23 +48,31 @@ int main() {
     //            values[i] = *value;
     //        }
     if (n == OBD_OK) {
-        fprintf(fp, "[");
-        for (i = 0; i <= 4; i++) {
+        fprintf(fp, "{\"Samplelist\":[");
+        for (i = 0; i <= 15; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
+                parameter = i;
                 n = read_parameter(fd, parameter, answer, values[i]);
                 //                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
                 //                obd_appendvalue(&lista_val, values[i]);
                 //                values[i]->obdv_ts = time(NULL);
                 //                values[i]->obdv_parameter = ENGINE_RPM;
-                timestamp(answer, fp, parameter);
-                sleep(1);
+                timestamp(answer, fp, parameter, values[i]);
+                usleep(100000);
+                if (n < 0) {
+                    fprintf(fp, "{\"Pname\":\"EOF\",\"INTvalue\":-1,\"FLOATvalue\":-1.0,\"CHARvalue\":\"-1\",\"Ts\":%ld}]}", time(NULL));
+                    close(fd);
+                    return 0;
+                }
             }
         }
-        fprintf(fp, "{-1,-1,-1}]");
+        fprintf(fp, "{\"Pname\":\"EOF\",\"INTvalue\":-1,\"FLOATvalue\":-1.0,\"CHARvalue\":\"-1\",\"Ts\":%ld}]}", time(NULL));
     } else {
         fprintf(stderr, "Error syncing protocol\n");
     }
+    write_atmsg(fd, "Z");
+    sleep(1);
     close(fd);
     return 0;
 }

@@ -60,6 +60,8 @@ extern "C" {
 
     /*Errors definition*/
     typedef enum {
+        OBD_END = -6,
+        OBD_COMMAND = -5,
         OBD_EMPTY = -4,
         OBD_ERROR = -3,
         OBD_TIMEOUT = -2,
@@ -90,7 +92,7 @@ extern "C" {
     char *cmd_description(t_obdcmdcode cmd);
     int cmd_fields(t_obdcmdcode cmd);
     void read_timeout(int sig);
-    void timestamp(char *buffer, FILE *fp, int parameter);
+    void timestamp(char *buffer, FILE *fp, int parameter, OBD_value *value);
     int openOBD_port();
     int write_port(int fd, char *buffer, int l);
     int write_atmsg(int fd, char *msg);

@@ -60,7 +60,7 @@ extern "C" {
      */
     char *cmd_description(t_obdcmdcode cmd) {
         int i;
-        
+
         for (i = 0; obd_parameters[i].obdp_code != OBDCMDCODE_ENDOFLIST; i++) {
             if (obd_parameters[i].obdp_code == cmd) return obd_parameters[i].obdp_desc;
         }
@@ -77,7 +77,7 @@ extern "C" {
      */
     int cmd_fields(t_obdcmdcode cmd) {
         int i;
-        
+
         for (i = 0; obd_parameters[i].obdp_code != OBDCMDCODE_ENDOFLIST; i++) {
             if (obd_parameters[i].obdp_code == cmd) return obd_parameters[i].obdp_fields;
         }
@@ -98,14 +98,14 @@ extern "C" {
      *              parameter: number of the desired parameter.
      * No return value.
      */
-    void timestamp(char *buffer, FILE *fp, int parameter) {
+    void timestamp(char *buffer, FILE *fp, int parameter, OBD_value *value) {
         time_t ltime;
         //        struct tm *Tm;
 
         ltime = time(NULL);
         //        Tm = localtime(&ltime);
         //        fprintf(fp, "%s;%ld\n", buffer, ltime);
-        fprintf(fp, "{%s,%s,%ld},", obd_parameters[parameter].obdp_parname, buffer, ltime);
+        fprintf(fp, "{\"Pname\":\"%s\",\"INTvalue\":%d,\"FLOATvalue\":%f,\"CHARvalue\":\"%s\",\"Ts\":%ld},\n", obd_parameters[parameter].obdp_parname, value->obdv_value.i, value->obdv_value.w, value->obdv_value.str, value->obdv_ts);
     }
 
     /* This function opens the OBD BT port of the car. It has no arguments. 
@@ -118,7 +118,7 @@ extern "C" {
 
         fd = open(portname, O_RDWR | O_NOCTTY);
         if (fd == -1)
-            perror("open_port: Unable to open communication port\n");
+            perror("openOBD_port: Unable to open communication port\n");
         else
             fcntl(fd, F_SETFL, 0);
         return (fd);
@@ -134,10 +134,10 @@ extern "C" {
      */
     int write_port(int fd, char *buffer, int l) {
         int n;
-        
+
         n = write(fd, buffer, l);
         if (n < 0)
-            perror("write_port:: error sending bytes to ELM port");
+            perror("write_port: error sending bytes to ELM port");
         return n;
     }
 
@@ -150,7 +150,7 @@ extern "C" {
      */
     int write_atmsg(int fd, char *msg) {
         char buffer[ATMSGLEN];
-        
+
         strncpy(buffer, "AT", ATMSGLEN);
         strncat(buffer, msg, ATMSGLEN);
         strncat(buffer, LM327_EOLSTRING, ATMSGLEN);
@@ -166,7 +166,7 @@ extern "C" {
      */
     int write_obdmsg(int fd, char *msg) {
         char buffer[OBDMSGLEN] = "";
-        
+
         strncat(buffer, msg, OBDMSGLEN);
         strncat(buffer, LM327_EOLSTRING, OBDMSGLEN);
         return write_port(fd, buffer, strlen(buffer));
@@ -193,7 +193,7 @@ extern "C" {
     int read_port(int fd, char *buffer, int l, int timeout) {
         struct sigaction act, oact;
         int prev_flags, n;
-        
+
         if (timeout == -1) {
             prev_flags = fcntl(fd, F_GETFL, 0);
             fcntl(fd, F_SETFL, prev_flags | O_NONBLOCK);
@@ -266,7 +266,7 @@ extern "C" {
      */
     int read_msg(int fd, char *buffer, int l, int timeout) {
         int i = 0, r;
-        
+
         while (1) {
             r = read_port(fd, &(buffer[i]), 1, timeout);
             /* Check if read returned an error after reading some characters and 
@@ -313,7 +313,7 @@ extern "C" {
     int sync_protocol(int fd) {
         char answer[MAX_ANSWER];
         int n = -1;
-        
+
         /* Empty input channel */
 #if DEBUGLEVEL
         fprintf(stderr, "DEBUG::sync_protocol, starting to clean input\n");
@@ -387,7 +387,7 @@ extern "C" {
         unsigned int C1, C2;
 
         fields = sscanf(answer, "%2x %2x %2x %2x %2x %2x", &C1, &C2, A, B, C, D);
-        if (fields >= 2) *Cack = (64 - C1) * 256 + C2; /* C = (C1 << 8) | C2 */
+        if (fields >= 2) *Cack = (C1 - 64) * 256 + C2; /* C = (C1 << 8) | C2 */
         return fields;
     }
 
@@ -413,17 +413,16 @@ extern "C" {
         n = read_msg(fd, answer, MAX_ANSWER, 0);
         fields = separate_string(answer, &commandACK, &A, &B, &C, &D);
         if (fields < 2) {
-            /* Error */
-            return -1; // TODO: Generate specific error for invalid 
+            perror("read_parameter: unexpected error when getting answer\n");
+            return OBD_ERROR;
         } else {
             if (obd_parameters[i].obdp_code != commandACK) {
-                /* Error */
-                return -1; // TODO: Generate specific error for answer  not matching command
+                perror("read_parameter: error matching command with answer\n");
+                return OBD_COMMAND;
             }
-
-            // TODO Verify number of fields in answer
             value->obdv_parameter = obd_parameters[i].obdp_code;
             value->obdv_ts = time(NULL);
+            strncpy(value->obdv_value.str, "", OBDV_MAXSTR);
             switch (obd_parameters[i].obdp_code) {
                 case 0x0104: //Calculated engine load
                     value->obdv_value.w = 100 * A / 255;
@@ -493,8 +492,8 @@ extern "C" {
                     value->obdv_value.i = (100 * A) / 255;
                     sprintf(answer, "%d", value->obdv_value.i);
                     break;
-                case -1: 
-                    return -1;
+                case -1:
+                    return OBD_END;
 
             }
         }
