@@ -10,24 +10,24 @@
 #define OBDV_MAXSTR 32
 
 int main() {
-    int fd, i = 0, j, n, status, parameter;
+    int fd, i = 0, n, status, parameter = 3;
     char answer[MAX_ANSWER];
     FILE * fp;
     fp = fopen("file.json", "w+");
-    OBD_value * values[10000]; //TODO change to constant
+    OBD_value * values[10000]; //TODO change constant
     OBD_vallist lista_val;
     OBD_value *value;
 
-    printf("Vamos a proceder a abrir el puerto..\n");
+    printf("Opening port..\n");
     fd = openOBD_port();
     if (fd < 0) {
-        fprintf(stderr, "Error opening port\n");
+        fprintf(stderr, "Error while opening port\n");
         exit(1);
     }
 
-    printf("Vamos a proceder a escribir en el puerto..\n");
+    printf("Syncing port..\n");
     n = sync_protocol(fd);
-    while ((status = read_msg(fd, answer, MAX_ANSWER, -1)) > 0);
+    while ((status = read_msg(fd, answer, MAX_ANSWER, -1)) > 0); //TODO no se la validez de esto
     //    if (status != OBD_EMPTY)
     //    {
     //        perror("Error emptying buffer");
@@ -52,16 +52,17 @@ int main() {
         for (i = 0; i <= 15; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
-                parameter = i;
                 n = read_parameter(fd, parameter, answer, values[i]);
                 //                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
                 //                obd_appendvalue(&lista_val, values[i]);
                 //                values[i]->obdv_ts = time(NULL);
                 //                values[i]->obdv_parameter = ENGINE_RPM;
                 timestamp(answer, fp, parameter, values[i]);
-                usleep(100000);
+                sleep(1);
                 if (n < 0) {
                     fprintf(fp, "{\"Pname\":\"EOF\",\"INTvalue\":-1,\"FLOATvalue\":-1.0,\"CHARvalue\":\"-1\",\"Ts\":%ld}]}", time(NULL));
+                    write_atmsg(fd, "Z");
+                    sleep(1);
                     close(fd);
                     return 0;
                 }

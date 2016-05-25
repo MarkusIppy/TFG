@@ -38,7 +38,8 @@ extern "C" {
         AMB_AIR_TEMP = 0x0146,
         ACCEL_POS_D = 0x0149,
         ACCEL_POS_E = 0x014A,
-        COMMANDED_THROTTLE = 0x014C
+        COMMANDED_THROTTLE = 0x014C,
+        VIN = 0x0902
     } t_obdcmdcode;
 
     typedef struct {

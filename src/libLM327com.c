@@ -130,7 +130,7 @@ extern "C" {
      *              buffer: pointer to the buffer where the command is.
      *              l: maximum length of the buffer.
      * Return value:
-     *              n: integer that indicates wether the function has succeeded.
+     *              n: number of bytes written. If -1 indicates an error.
      */
     int write_port(int fd, char *buffer, int l) {
         int n;
@@ -162,7 +162,7 @@ extern "C" {
      *              fd: file descriptor to write in.
      *              buffer: pointer to the buffer where the command is.
      * Return value:
-     *              n: integer that indicates wether the function has succeeded.
+     *              n: number of bytes written. If -1 indicates an error.
      */
     int write_obdmsg(int fd, char *msg) {
         char buffer[OBDMSGLEN] = "";
@@ -183,7 +183,7 @@ extern "C" {
      *                          -1  uses non blocking input and returns inmediately 
      *                              if input stream is empty in this moment.
      * Return value:
-     *          1: read 1 character
+     *          1: read one character.
      *          OBD_EMPTY: non block input returned inmediately when using non 
      *                     blocking input.
      *          OBD_CLOSED: fd is closed.
@@ -219,7 +219,7 @@ extern "C" {
 
         if (n == 0) {
             perror("read_port:: closed ELM port while reading");
-            return OBD_CLOSED;
+            return OBD_CLOSED; //TODO No estoy muy seguro de que implique que se ha cerrado
         }
         if (n < 0) {
             switch (errno) {
@@ -257,7 +257,7 @@ extern "C" {
      * The out parameter is an integer showing the error or the length of what is
      * being read.
      * Return value:
-     *          >0: read n characters not including EOL nor final zero
+     *          > 0: read n characters not including EOL nor final zero
      *          OBD_EMPTY: non block input returned inmediately when using non 
      *                     blocking input.
      *          OBD_CLOSED: fd is closed.
@@ -285,11 +285,11 @@ extern "C" {
             /* We read one new character */
             /* If we receive EOL or > at the beginning of a line or a NULL character
              * then ignore it and go on reading characters */
-            if (((buffer[i] == LM327_EOL || buffer[i] == '>') && i == 0) || buffer[i] == 0) {
+            if (((buffer[i] == LM327_EOL || buffer[i] == '>') && i == 0) || buffer[i] == 0) { //TODO creo que sobra la segunda condición
                 buffer[i] = 0;
                 continue;
             }
-            /* A NL character marks the end of the message. Overwrite it witha zero
+            /* A NL character marks the end of the message. Overwrite it with a zero
              * and return the message */
             if (buffer[i] == LM327_EOL) {
                 buffer[i] = 0;
@@ -308,7 +308,8 @@ extern "C" {
      * Arguments:
      *              fd: file descriptor.
      * Return value:
-     *              n: integer that indicates wether the function has succeeded.
+     *              -1: Not synced properly.
+     *               0: Synced properly.
      */
     int sync_protocol(int fd) {
         char answer[MAX_ANSWER];
@@ -332,7 +333,7 @@ extern "C" {
 #if DEBUGLEVEL
             fprintf(stderr, "DEBUG::sync_protocol, sent command echo off (AT%s)\n", OBD_INITSTRING);
 #endif
-            read_msg(fd, answer, MAX_ANSWER, 0);
+            read_msg(fd, answer, MAX_ANSWER, 0); //TODO por que timeout= 0 y no guardamos su salida
 #if DEBUGLEVEL
             fprintf(stderr, "DEBUG::sync_protocol, read answer=%s\n", answer);
 #endif
@@ -400,17 +401,20 @@ extern "C" {
      *              answer: where the final value is going to be stored.
      *              value: an OBD_value struct.
      * Return value:
-     *              n: integer that indicates whether an error ocurred.  
+     *              r: read r characters not including EOL nor final zero.
+     *              n: number of bytes written. 
+     *              OBD_ERROR: Error when getting the answer.
+     *              OBD_COMMAND: Error matching answer with command.
      */
     int read_parameter(int fd, int i, char *answer, OBD_value *value) {
-        unsigned int n, A, B, C, D, commandACK;
+        unsigned int n, r, A, B, C, D, commandACK;
         char buffer[HEXLENGTH];
         int fields;
 
         sprintf(buffer, "%04X", obd_parameters[i].obdp_code);
         //        itoa(hexadecimal, buffer, 16);
         n = write_obdmsg(fd, buffer);
-        n = read_msg(fd, answer, MAX_ANSWER, 0);
+        r = read_msg(fd, answer, MAX_ANSWER, 0);
         fields = separate_string(answer, &commandACK, &A, &B, &C, &D);
         if (fields < 2) {
             perror("read_parameter: unexpected error when getting answer\n");
@@ -492,12 +496,14 @@ extern "C" {
                     value->obdv_value.i = (100 * A) / 255;
                     sprintf(answer, "%d", value->obdv_value.i);
                     break;
+                case 0x0902: //VIN
+                    strncpy(value->obdv_value.str, "NO HAY VIN DE MOMENTO", OBDV_MAXSTR);
                 case -1:
                     return OBD_END;
 
             }
         }
-        return n;
+        return r;
 
     }
 
