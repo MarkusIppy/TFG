@@ -48,6 +48,7 @@ extern "C" {
         {ACCEL_POS_D, 1, "ACCELPOSD", ACCEL_POS_D_DESC},
         {ACCEL_POS_E, 1, "ACCELPOSE", ACCEL_POS_E_DESC},
         {COMMANDED_THROTTLE, 1, "THROACT", COMMANDED_THROTTLE_DESC},
+        {VIN, 17, "VIN", "Vehicle Identification Number"},
         {OBDCMDCODE_ENDOFLIST, -1, ""}
     };
 
@@ -303,6 +304,48 @@ extern "C" {
         return i;
     }
 
+    /* 
+     * Reads input from OBD until first NL when VIN is asked, removing it from 
+     * the string and adding a zero at the end.
+     * This function goes byte by byte cleaning the output information for a better
+     * output. 
+     * Arguments: 
+     *              fd: Open file descriptor to read from.
+     *              buffer: pointer the string in which to store the information.
+     *              l: maximum length of the buffer.
+     *              timeout : 
+     *                          > 0 time to wait for input before aborting read.
+     *                          0 > wait input forever.
+     *                          -1  uses non blocking input and returns inmediately 
+     *                              if input stream is empty in this moment.
+     * The out parameter is an integer showing the error or the length of what is
+     * being read.
+     * Return value:
+     *          > 0: read n characters not including EOL nor final zero
+     *          OBD_EMPTY: non block input returned inmediately when using non 
+     *                     blocking input.
+     *          OBD_CLOSED: fd is closed.
+     *          OBD_TIMEOUT: blocking input didn't answer before specified timeout.
+     *          OBD_ERROR: other errors.
+     */
+    int read_VINmsg(int fd, char *buffer, int l, int timeout) {
+        int r;
+        unsigned int Cack;
+        char VIN [OBDV_MAXSTR] = "";
+        char vinstring[OBDV_MAXSTR];
+
+        r = read_msg(fd, buffer, l, timeout);
+        read_msg(fd, buffer, l, timeout);
+        strcat(vinstring, buffer);
+        read_msg(fd, buffer, l, timeout);
+        strcat(vinstring, buffer);
+        read_msg(fd, buffer, l, timeout);
+        strcat(vinstring, buffer);
+        puts(vinstring);
+        separate_VINstring(vinstring, &Cack, VIN);
+        return r;
+    }
+
     /* This function makes sure the buffer is empty and OBD is ready to work 
      * correctly by writing a neutral command and checking the expected answer. 
      * Arguments:
@@ -381,7 +424,8 @@ extern "C" {
      *              Cack: command value for checking.
      *              A, B, C, D: the letter in which a hexadecimal string is
      *                          going to be stored.
-     * No return value.
+     * Return value:
+     *              fields: number of fields read in the string.
      */
     int separate_string(char *answer, unsigned int *Cack, unsigned int *A, unsigned int *B, unsigned int *C, unsigned int *D) {
         int fields;
@@ -389,6 +433,27 @@ extern "C" {
 
         fields = sscanf(answer, "%2x %2x %2x %2x %2x %2x", &C1, &C2, A, B, C, D);
         if (fields >= 2) *Cack = (C1 - 64) * 256 + C2; /* C = (C1 << 8) | C2 */
+        return fields;
+    }
+
+    /* This function separates the hexadecimal string given by the OBD when VIN
+     * is asked modified by us into 2 digits elements and storing them into their
+     * corresponding letters for calculating afterwards the real value.
+     * Arguments:
+     *              answer: the hexadecimal string.
+     *              Cack: command value for checking.
+     * No return value.
+     */
+    int separate_VINstring(char *answer, unsigned int *Cack, char *vinstring) {
+        int fields, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q;
+        unsigned int C1, C2;
+
+        fields = sscanf(answer, "0: %2x %2x 01 %2x %2x %2x\n1: %2x %2x %2x %2x %2x %2x %2x\n2: %2x %2x %2x %2x %2x %2x %2x\n", &C1, &C2, &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M, &N, &O, &P, &Q);
+        if (fields >= 2) {
+            *Cack = (C1 - 64) * 256 + C2; /* C = (C1 << 8) | C2 */
+            sprintf(vinstring, "%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q);
+        }
+
         return fields;
     }
 
@@ -408,99 +473,115 @@ extern "C" {
      */
     int read_parameter(int fd, int i, char *answer, OBD_value *value) {
         unsigned int n, r, A, B, C, D, commandACK;
-        char buffer[HEXLENGTH];
+        char buffer[HEXLENGTH], vinstring[OBDV_MAXSTR];
         int fields;
 
         sprintf(buffer, "%04X", obd_parameters[i].obdp_code);
         //        itoa(hexadecimal, buffer, 16);
         n = write_obdmsg(fd, buffer);
-        r = read_msg(fd, answer, MAX_ANSWER, 0);
-        fields = separate_string(answer, &commandACK, &A, &B, &C, &D);
-        if (fields < 2) {
-            perror("read_parameter: unexpected error when getting answer\n");
-            return OBD_ERROR;
-        } else {
-            if (obd_parameters[i].obdp_code != commandACK) {
-                perror("read_parameter: error matching command with answer\n");
-                return OBD_COMMAND;
-            }
-            value->obdv_parameter = obd_parameters[i].obdp_code;
-            value->obdv_ts = time(NULL);
-            strncpy(value->obdv_value.str, "", OBDV_MAXSTR);
-            switch (obd_parameters[i].obdp_code) {
-                case 0x0104: //Calculated engine load
-                    value->obdv_value.w = 100 * A / 255;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x0105: //Engine coolant temperature
-                    value->obdv_value.i = A - 40;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x010B: //Intake manifold absolute pressure
-                    value->obdv_value.i = A;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x010C: //Engine RPM
-                    value->obdv_value.w = (256 * A + B) / 4;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x010D: //Vehicle speed
-                    value->obdv_value.i = A;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x010F: //Intake air temperature
-                    value->obdv_value.i = A - 40;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x0110: //MAF air flow rate
-                    value->obdv_value.w = (256 * A + B) / 100;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x0111: //Throttle position
-                    value->obdv_value.w = 100 * A / 255;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x011F: //Run time since engine start
-                    value->obdv_value.i = 256 * A + B;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x0123: //Fuel Rail Gauge Pressure
-                    value->obdv_value.i = 10 * (256 * A + B);
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x0133: //Absolute Barometric Pressure
-                    value->obdv_value.i = A;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x0134: //Oxygen Sensor 1 Fuel–Air Equivalence Ratio
-                    value->obdv_value.w = 2 * (256 * A + B) / 65536;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x0145: //Relative throttle position
-                    value->obdv_value.w = (100 * A) / 255;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x0146: //Ambient air temperature
-                    value->obdv_value.i = A - 40;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x0149: //Accelerator pedal position D
-                    value->obdv_value.w = (100 * A) / 255;
-                    sprintf(answer, "%f", value->obdv_value.w);
-                    break;
-                case 0x014A: //Accelerator pedal position E
-                    value->obdv_value.i = (100 * A) / 255;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x014C: //Commanded throttle actuator
-                    value->obdv_value.i = (100 * A) / 255;
-                    sprintf(answer, "%d", value->obdv_value.i);
-                    break;
-                case 0x0902: //VIN
-                    strncpy(value->obdv_value.str, "NO HAY VIN DE MOMENTO", OBDV_MAXSTR);
-                case -1:
-                    return OBD_END;
+        if (obd_parameters[i].obdp_code != 0x0902) {
+            r = read_msg(fd, answer, MAX_ANSWER, 0);
+            fields = separate_string(answer, &commandACK, &A, &B, &C, &D);
+            if (fields < 2) {
+                perror("read_parameter: unexpected error when getting answer\n");
+                return OBD_ERROR;
+            } else {
+                if (obd_parameters[i].obdp_code != commandACK) {
+                    perror("read_parameter: error matching command with answer\n");
+                    return OBD_COMMAND;
+                }
+                value->obdv_parameter = obd_parameters[i].obdp_code;
+                value->obdv_ts = time(NULL);
+                strncpy(value->obdv_value.str, "", OBDV_MAXSTR);
+                switch (obd_parameters[i].obdp_code) {
+                    case 0x0104: //Calculated engine load
+                        value->obdv_value.w = 100 * A / 255;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x0105: //Engine coolant temperature
+                        value->obdv_value.i = A - 40;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x010B: //Intake manifold absolute pressure
+                        value->obdv_value.i = A;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x010C: //Engine RPM
+                        value->obdv_value.w = (256 * A + B) / 4;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x010D: //Vehicle speed
+                        value->obdv_value.i = A;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x010F: //Intake air temperature
+                        value->obdv_value.i = A - 40;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x0110: //MAF air flow rate
+                        value->obdv_value.w = (256 * A + B) / 100;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x0111: //Throttle position
+                        value->obdv_value.w = 100 * A / 255;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x011F: //Run time since engine start
+                        value->obdv_value.i = 256 * A + B;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x0123: //Fuel Rail Gauge Pressure
+                        value->obdv_value.i = 10 * (256 * A + B);
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x0133: //Absolute Barometric Pressure
+                        value->obdv_value.i = A;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x0134: //Oxygen Sensor 1 Fuel–Air Equivalence Ratio
+                        value->obdv_value.w = 2 * (256 * A + B) / 65536;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x0145: //Relative throttle position
+                        value->obdv_value.w = (100 * A) / 255;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x0146: //Ambient air temperature
+                        value->obdv_value.i = A - 40;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x0149: //Accelerator pedal position D
+                        value->obdv_value.w = (100 * A) / 255;
+                        sprintf(answer, "%f", value->obdv_value.w);
+                        break;
+                    case 0x014A: //Accelerator pedal position E
+                        value->obdv_value.i = (100 * A) / 255;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case 0x014C: //Commanded throttle actuator
+                        value->obdv_value.i = (100 * A) / 255;
+                        sprintf(answer, "%d", value->obdv_value.i);
+                        break;
+                    case -1:
+                        return OBD_END;
 
+                }
+            }
+        } else {
+            r = read_VINmsg(fd, answer, MAX_ANSWER, 0);
+            printf("Hola el answer es : %s\n", answer);
+            fields = separate_VINstring(answer, &commandACK, vinstring); //TODO defininar lo del 2 de fields
+            if (fields < 2) {
+                perror("read_parameter: unexpected error when getting answer\n");
+                return OBD_ERROR;
+            } else {
+                if (obd_parameters[i].obdp_code != commandACK) {
+                    perror("read_parameter: error matching command with answer\n");
+                    return OBD_COMMAND;
+                }
+                value->obdv_parameter = obd_parameters[i].obdp_code;
+                value->obdv_ts = time(NULL);
+                strncpy(value->obdv_value.str, vinstring, OBDV_MAXSTR);
             }
         }
         return r;

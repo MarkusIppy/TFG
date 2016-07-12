@@ -9,9 +9,8 @@
         <group>
             <file>file:/Users/Fernando/NetBeansProjects/TFG/include/OBDparameters.h</file>
             <file>file:/Users/Fernando/NetBeansProjects/TFG/src/main.c</file>
-            <file>file:/Users/Fernando/NetBeansProjects/TFG/file.json</file>
-            <file>file:/Users/Fernando/NetBeansProjects/TFG/src/libLM327com.c</file>
             <file>file:/Users/Fernando/NetBeansProjects/TFG/include/libLM327com.h</file>
+            <file>file:/Users/Fernando/NetBeansProjects/TFG/src/libLM327com.c</file>
         </group>
     </open-files>
 </project-private>

@@ -99,11 +99,13 @@ extern "C" {
     int write_obdmsg(int fd, char *msg);
     int read_port(int fd, char *buffer, int l, int timeout);
     int read_msg(int fd, char *buffer, int l, int timeout);
+    int read_VINmsg(int fd, char *buffer, int l, int timeout);
     int sync_protocol(int fd);
     OBD_value *obd_newvalue();
     void obd_appendvalue(OBD_vallist *list, OBD_value *value);
     int hex2int(char *answer);
     int separate_string(char *answer, unsigned int *Cack, unsigned int *A, unsigned int *B, unsigned int *C, unsigned int *D);
+    int separate_VINstring(char *answer, unsigned int *Cack, char *vinstring);
     int read_parameter(int fd, int hexadecimal, char *answer, OBD_value *value);
 
 #ifdef __cplusplus
