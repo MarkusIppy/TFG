@@ -328,13 +328,12 @@ extern "C" {
      *          OBD_TIMEOUT: blocking input didn't answer before specified timeout.
      *          OBD_ERROR: other errors.
      */
-    int read_VINmsg(int fd, char *buffer, int l, int timeout) {
+    int read_VINmsg(int fd, char *vinstring, int l, int timeout) {
         int r;
         unsigned int Cack;
-        char VIN [OBDV_MAXSTR] = "";
-        char vinstring[OBDV_MAXSTR];
+        char buffer[OBDV_MAXSTR];
 
-        r = read_msg(fd, buffer, l, timeout);
+        read_msg(fd, buffer, l, timeout);
         read_msg(fd, buffer, l, timeout);
         strcat(vinstring, buffer);
         read_msg(fd, buffer, l, timeout);
@@ -342,7 +341,6 @@ extern "C" {
         read_msg(fd, buffer, l, timeout);
         strcat(vinstring, buffer);
         puts(vinstring);
-        separate_VINstring(vinstring, &Cack, VIN);
         return r;
     }
 
@@ -444,14 +442,14 @@ extern "C" {
      *              Cack: command value for checking.
      * No return value.
      */
-    int separate_VINstring(char *answer, unsigned int *Cack, char *vinstring) {
+    int separate_VINstring(char *vinstring, unsigned int *Cack, char *VIN) {
         int fields, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q;
         unsigned int C1, C2;
 
-        fields = sscanf(answer, "0: %2x %2x 01 %2x %2x %2x\n1: %2x %2x %2x %2x %2x %2x %2x\n2: %2x %2x %2x %2x %2x %2x %2x\n", &C1, &C2, &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M, &N, &O, &P, &Q);
+        fields = sscanf(vinstring, "0: %2x %2x 01 %2x %2x %2x\n1: %2x %2x %2x %2x %2x %2x %2x\n2: %2x %2x %2x %2x %2x %2x %2x\n", &C1, &C2, &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M, &N, &O, &P, &Q);
         if (fields >= 2) {
             *Cack = (C1 - 64) * 256 + C2; /* C = (C1 << 8) | C2 */
-            sprintf(vinstring, "%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q);
+            sprintf(VIN, "%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q);
         }
 
         return fields;

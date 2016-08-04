@@ -1,0 +1,1038 @@
+{
+    "Samplelist": [{
+            "Pname": "ENGRPM",
+            "INTvalue": 1158352896,
+            "FLOATvalue": 2225.000000,
+            "CHARvalue": "",
+            "Ts": 1470300673
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158602752,
+            "FLOATvalue": 2286.000000,
+            "CHARvalue": "",
+            "Ts": 1470300674
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158823936,
+            "FLOATvalue": 2340.000000,
+            "CHARvalue": "",
+            "Ts": 1470300675
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1153859584,
+            "FLOATvalue": 1588.000000,
+            "CHARvalue": "",
+            "Ts": 1470300677
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1155858432,
+            "FLOATvalue": 1832.000000,
+            "CHARvalue": "",
+            "Ts": 1470300678
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156014080,
+            "FLOATvalue": 1851.000000,
+            "CHARvalue": "",
+            "Ts": 1470300679
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156268032,
+            "FLOATvalue": 1882.000000,
+            "CHARvalue": "",
+            "Ts": 1470300680
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156341760,
+            "FLOATvalue": 1891.000000,
+            "CHARvalue": "",
+            "Ts": 1470300681
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156530176,
+            "FLOATvalue": 1914.000000,
+            "CHARvalue": "",
+            "Ts": 1470300683
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156571136,
+            "FLOATvalue": 1919.000000,
+            "CHARvalue": "",
+            "Ts": 1470300684
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156636672,
+            "FLOATvalue": 1927.000000,
+            "CHARvalue": "",
+            "Ts": 1470300685
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156661248,
+            "FLOATvalue": 1930.000000,
+            "CHARvalue": "",
+            "Ts": 1470300686
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156825088,
+            "FLOATvalue": 1950.000000,
+            "CHARvalue": "",
+            "Ts": 1470300688
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156718592,
+            "FLOATvalue": 1937.000000,
+            "CHARvalue": "",
+            "Ts": 1470300689
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156636672,
+            "FLOATvalue": 1927.000000,
+            "CHARvalue": "",
+            "Ts": 1470300690
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156743168,
+            "FLOATvalue": 1940.000000,
+            "CHARvalue": "",
+            "Ts": 1470300691
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157038080,
+            "FLOATvalue": 1976.000000,
+            "CHARvalue": "",
+            "Ts": 1470300692
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157193728,
+            "FLOATvalue": 1995.000000,
+            "CHARvalue": "",
+            "Ts": 1470300693
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157472256,
+            "FLOATvalue": 2029.000000,
+            "CHARvalue": "",
+            "Ts": 1470300695
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157656576,
+            "FLOATvalue": 2055.000000,
+            "CHARvalue": "",
+            "Ts": 1470300696
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157709824,
+            "FLOATvalue": 2068.000000,
+            "CHARvalue": "",
+            "Ts": 1470300697
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157308416,
+            "FLOATvalue": 2009.000000,
+            "CHARvalue": "",
+            "Ts": 1470300698
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157332992,
+            "FLOATvalue": 2012.000000,
+            "CHARvalue": "",
+            "Ts": 1470300699
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157283840,
+            "FLOATvalue": 2006.000000,
+            "CHARvalue": "",
+            "Ts": 1470300701
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157128192,
+            "FLOATvalue": 1987.000000,
+            "CHARvalue": "",
+            "Ts": 1470300702
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156997120,
+            "FLOATvalue": 1971.000000,
+            "CHARvalue": "",
+            "Ts": 1470300703
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156808704,
+            "FLOATvalue": 1948.000000,
+            "CHARvalue": "",
+            "Ts": 1470300704
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156800512,
+            "FLOATvalue": 1947.000000,
+            "CHARvalue": "",
+            "Ts": 1470300705
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156669440,
+            "FLOATvalue": 1931.000000,
+            "CHARvalue": "",
+            "Ts": 1470300707
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156620288,
+            "FLOATvalue": 1925.000000,
+            "CHARvalue": "",
+            "Ts": 1470300708
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156587520,
+            "FLOATvalue": 1921.000000,
+            "CHARvalue": "",
+            "Ts": 1470300709
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156497408,
+            "FLOATvalue": 1910.000000,
+            "CHARvalue": "",
+            "Ts": 1470300710
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156620288,
+            "FLOATvalue": 1925.000000,
+            "CHARvalue": "",
+            "Ts": 1470300711
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156603904,
+            "FLOATvalue": 1923.000000,
+            "CHARvalue": "",
+            "Ts": 1470300713
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156685824,
+            "FLOATvalue": 1933.000000,
+            "CHARvalue": "",
+            "Ts": 1470300714
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156628480,
+            "FLOATvalue": 1926.000000,
+            "CHARvalue": "",
+            "Ts": 1470300715
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156554752,
+            "FLOATvalue": 1917.000000,
+            "CHARvalue": "",
+            "Ts": 1470300716
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156431872,
+            "FLOATvalue": 1902.000000,
+            "CHARvalue": "",
+            "Ts": 1470300717
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156235264,
+            "FLOATvalue": 1878.000000,
+            "CHARvalue": "",
+            "Ts": 1470300718
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156382720,
+            "FLOATvalue": 1896.000000,
+            "CHARvalue": "",
+            "Ts": 1470300720
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156489216,
+            "FLOATvalue": 1909.000000,
+            "CHARvalue": "",
+            "Ts": 1470300721
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156333568,
+            "FLOATvalue": 1890.000000,
+            "CHARvalue": "",
+            "Ts": 1470300722
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1155907584,
+            "FLOATvalue": 1838.000000,
+            "CHARvalue": "",
+            "Ts": 1470300723
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1155547136,
+            "FLOATvalue": 1794.000000,
+            "CHARvalue": "",
+            "Ts": 1470300724
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1155629056,
+            "FLOATvalue": 1804.000000,
+            "CHARvalue": "",
+            "Ts": 1470300726
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156055040,
+            "FLOATvalue": 1856.000000,
+            "CHARvalue": "",
+            "Ts": 1470300727
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156579328,
+            "FLOATvalue": 1920.000000,
+            "CHARvalue": "",
+            "Ts": 1470300728
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157095424,
+            "FLOATvalue": 1983.000000,
+            "CHARvalue": "",
+            "Ts": 1470300729
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157496832,
+            "FLOATvalue": 2032.000000,
+            "CHARvalue": "",
+            "Ts": 1470300730
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157689344,
+            "FLOATvalue": 2063.000000,
+            "CHARvalue": "",
+            "Ts": 1470300731
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157869568,
+            "FLOATvalue": 2107.000000,
+            "CHARvalue": "",
+            "Ts": 1470300733
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158033408,
+            "FLOATvalue": 2147.000000,
+            "CHARvalue": "",
+            "Ts": 1470300734
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158270976,
+            "FLOATvalue": 2205.000000,
+            "CHARvalue": "",
+            "Ts": 1470300735
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158438912,
+            "FLOATvalue": 2246.000000,
+            "CHARvalue": "",
+            "Ts": 1470300736
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158656000,
+            "FLOATvalue": 2299.000000,
+            "CHARvalue": "",
+            "Ts": 1470300737
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158877184,
+            "FLOATvalue": 2353.000000,
+            "CHARvalue": "",
+            "Ts": 1470300738
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159032832,
+            "FLOATvalue": 2391.000000,
+            "CHARvalue": "",
+            "Ts": 1470300740
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159069696,
+            "FLOATvalue": 2400.000000,
+            "CHARvalue": "",
+            "Ts": 1470300741
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159094272,
+            "FLOATvalue": 2406.000000,
+            "CHARvalue": "",
+            "Ts": 1470300742
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159168000,
+            "FLOATvalue": 2424.000000,
+            "CHARvalue": "",
+            "Ts": 1470300743
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159151616,
+            "FLOATvalue": 2420.000000,
+            "CHARvalue": "",
+            "Ts": 1470300744
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159077888,
+            "FLOATvalue": 2402.000000,
+            "CHARvalue": "",
+            "Ts": 1470300746
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158881280,
+            "FLOATvalue": 2354.000000,
+            "CHARvalue": "",
+            "Ts": 1470300747
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158594560,
+            "FLOATvalue": 2284.000000,
+            "CHARvalue": "",
+            "Ts": 1470300748
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158189056,
+            "FLOATvalue": 2185.000000,
+            "CHARvalue": "",
+            "Ts": 1470300749
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157754880,
+            "FLOATvalue": 2079.000000,
+            "CHARvalue": "",
+            "Ts": 1470300750
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157763072,
+            "FLOATvalue": 2081.000000,
+            "CHARvalue": "",
+            "Ts": 1470300751
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157976064,
+            "FLOATvalue": 2133.000000,
+            "CHARvalue": "",
+            "Ts": 1470300753
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158270976,
+            "FLOATvalue": 2205.000000,
+            "CHARvalue": "",
+            "Ts": 1470300754
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158545408,
+            "FLOATvalue": 2272.000000,
+            "CHARvalue": "",
+            "Ts": 1470300755
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158754304,
+            "FLOATvalue": 2323.000000,
+            "CHARvalue": "",
+            "Ts": 1470300756
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158930432,
+            "FLOATvalue": 2366.000000,
+            "CHARvalue": "",
+            "Ts": 1470300757
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159090176,
+            "FLOATvalue": 2405.000000,
+            "CHARvalue": "",
+            "Ts": 1470300758
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159135232,
+            "FLOATvalue": 2416.000000,
+            "CHARvalue": "",
+            "Ts": 1470300760
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159159808,
+            "FLOATvalue": 2422.000000,
+            "CHARvalue": "",
+            "Ts": 1470300761
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159188480,
+            "FLOATvalue": 2429.000000,
+            "CHARvalue": "",
+            "Ts": 1470300762
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159192576,
+            "FLOATvalue": 2430.000000,
+            "CHARvalue": "",
+            "Ts": 1470300763
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159184384,
+            "FLOATvalue": 2428.000000,
+            "CHARvalue": "",
+            "Ts": 1470300764
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159249920,
+            "FLOATvalue": 2444.000000,
+            "CHARvalue": "",
+            "Ts": 1470300766
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159172096,
+            "FLOATvalue": 2425.000000,
+            "CHARvalue": "",
+            "Ts": 1470300767
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159204864,
+            "FLOATvalue": 2433.000000,
+            "CHARvalue": "",
+            "Ts": 1470300768
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159258112,
+            "FLOATvalue": 2446.000000,
+            "CHARvalue": "",
+            "Ts": 1470300769
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159286784,
+            "FLOATvalue": 2453.000000,
+            "CHARvalue": "",
+            "Ts": 1470300770
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159327744,
+            "FLOATvalue": 2463.000000,
+            "CHARvalue": "",
+            "Ts": 1470300771
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1156194304,
+            "FLOATvalue": 1873.000000,
+            "CHARvalue": "",
+            "Ts": 1470300773
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157808128,
+            "FLOATvalue": 2092.000000,
+            "CHARvalue": "",
+            "Ts": 1470300774
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157894144,
+            "FLOATvalue": 2113.000000,
+            "CHARvalue": "",
+            "Ts": 1470300775
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157914624,
+            "FLOATvalue": 2118.000000,
+            "CHARvalue": "",
+            "Ts": 1470300776
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157988352,
+            "FLOATvalue": 2136.000000,
+            "CHARvalue": "",
+            "Ts": 1470300777
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158070272,
+            "FLOATvalue": 2156.000000,
+            "CHARvalue": "",
+            "Ts": 1470300779
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158103040,
+            "FLOATvalue": 2164.000000,
+            "CHARvalue": "",
+            "Ts": 1470300780
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158119424,
+            "FLOATvalue": 2168.000000,
+            "CHARvalue": "",
+            "Ts": 1470300781
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158213632,
+            "FLOATvalue": 2191.000000,
+            "CHARvalue": "",
+            "Ts": 1470300782
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158205440,
+            "FLOATvalue": 2189.000000,
+            "CHARvalue": "",
+            "Ts": 1470300783
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158234112,
+            "FLOATvalue": 2196.000000,
+            "CHARvalue": "",
+            "Ts": 1470300785
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158254592,
+            "FLOATvalue": 2201.000000,
+            "CHARvalue": "",
+            "Ts": 1470300786
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158311936,
+            "FLOATvalue": 2215.000000,
+            "CHARvalue": "",
+            "Ts": 1470300787
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158316032,
+            "FLOATvalue": 2216.000000,
+            "CHARvalue": "",
+            "Ts": 1470300788
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158377472,
+            "FLOATvalue": 2231.000000,
+            "CHARvalue": "",
+            "Ts": 1470300789
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158414336,
+            "FLOATvalue": 2240.000000,
+            "CHARvalue": "",
+            "Ts": 1470300790
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158455296,
+            "FLOATvalue": 2250.000000,
+            "CHARvalue": "",
+            "Ts": 1470300792
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158483968,
+            "FLOATvalue": 2257.000000,
+            "CHARvalue": "",
+            "Ts": 1470300793
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158504448,
+            "FLOATvalue": 2262.000000,
+            "CHARvalue": "",
+            "Ts": 1470300794
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158561792,
+            "FLOATvalue": 2276.000000,
+            "CHARvalue": "",
+            "Ts": 1470300795
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158598656,
+            "FLOATvalue": 2285.000000,
+            "CHARvalue": "",
+            "Ts": 1470300796
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158627328,
+            "FLOATvalue": 2292.000000,
+            "CHARvalue": "",
+            "Ts": 1470300797
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158643712,
+            "FLOATvalue": 2296.000000,
+            "CHARvalue": "",
+            "Ts": 1470300799
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158672384,
+            "FLOATvalue": 2303.000000,
+            "CHARvalue": "",
+            "Ts": 1470300800
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158705152,
+            "FLOATvalue": 2311.000000,
+            "CHARvalue": "",
+            "Ts": 1470300801
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158721536,
+            "FLOATvalue": 2315.000000,
+            "CHARvalue": "",
+            "Ts": 1470300802
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158746112,
+            "FLOATvalue": 2321.000000,
+            "CHARvalue": "",
+            "Ts": 1470300803
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158791168,
+            "FLOATvalue": 2332.000000,
+            "CHARvalue": "",
+            "Ts": 1470300804
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158832128,
+            "FLOATvalue": 2342.000000,
+            "CHARvalue": "",
+            "Ts": 1470300806
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158848512,
+            "FLOATvalue": 2346.000000,
+            "CHARvalue": "",
+            "Ts": 1470300807
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158873088,
+            "FLOATvalue": 2352.000000,
+            "CHARvalue": "",
+            "Ts": 1470300808
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158905856,
+            "FLOATvalue": 2360.000000,
+            "CHARvalue": "",
+            "Ts": 1470300809
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158950912,
+            "FLOATvalue": 2371.000000,
+            "CHARvalue": "",
+            "Ts": 1470300810
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158991872,
+            "FLOATvalue": 2381.000000,
+            "CHARvalue": "",
+            "Ts": 1470300812
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159004160,
+            "FLOATvalue": 2384.000000,
+            "CHARvalue": "",
+            "Ts": 1470300813
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159065600,
+            "FLOATvalue": 2399.000000,
+            "CHARvalue": "",
+            "Ts": 1470300814
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159086080,
+            "FLOATvalue": 2404.000000,
+            "CHARvalue": "",
+            "Ts": 1470300815
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159122944,
+            "FLOATvalue": 2413.000000,
+            "CHARvalue": "",
+            "Ts": 1470300816
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159143424,
+            "FLOATvalue": 2418.000000,
+            "CHARvalue": "",
+            "Ts": 1470300818
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159180288,
+            "FLOATvalue": 2427.000000,
+            "CHARvalue": "",
+            "Ts": 1470300819
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159196672,
+            "FLOATvalue": 2431.000000,
+            "CHARvalue": "",
+            "Ts": 1470300820
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159245824,
+            "FLOATvalue": 2443.000000,
+            "CHARvalue": "",
+            "Ts": 1470300821
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159254016,
+            "FLOATvalue": 2445.000000,
+            "CHARvalue": "",
+            "Ts": 1470300822
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159262208,
+            "FLOATvalue": 2447.000000,
+            "CHARvalue": "",
+            "Ts": 1470300823
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1159057408,
+            "FLOATvalue": 2397.000000,
+            "CHARvalue": "",
+            "Ts": 1470300825
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158754304,
+            "FLOATvalue": 2323.000000,
+            "CHARvalue": "",
+            "Ts": 1470300826
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158586368,
+            "FLOATvalue": 2282.000000,
+            "CHARvalue": "",
+            "Ts": 1470300827
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158623232,
+            "FLOATvalue": 2291.000000,
+            "CHARvalue": "",
+            "Ts": 1470300828
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158668288,
+            "FLOATvalue": 2302.000000,
+            "CHARvalue": "",
+            "Ts": 1470300829
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158692864,
+            "FLOATvalue": 2308.000000,
+            "CHARvalue": "",
+            "Ts": 1470300831
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158737920,
+            "FLOATvalue": 2319.000000,
+            "CHARvalue": "",
+            "Ts": 1470300832
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158766592,
+            "FLOATvalue": 2326.000000,
+            "CHARvalue": "",
+            "Ts": 1470300833
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158651904,
+            "FLOATvalue": 2298.000000,
+            "CHARvalue": "",
+            "Ts": 1470300834
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158373376,
+            "FLOATvalue": 2230.000000,
+            "CHARvalue": "",
+            "Ts": 1470300835
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158160384,
+            "FLOATvalue": 2178.000000,
+            "CHARvalue": "",
+            "Ts": 1470300837
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158057984,
+            "FLOATvalue": 2153.000000,
+            "CHARvalue": "",
+            "Ts": 1470300838
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1158041600,
+            "FLOATvalue": 2149.000000,
+            "CHARvalue": "",
+            "Ts": 1470300839
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157910528,
+            "FLOATvalue": 2117.000000,
+            "CHARvalue": "",
+            "Ts": 1470300840
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157754880,
+            "FLOATvalue": 2079.000000,
+            "CHARvalue": "",
+            "Ts": 1470300841
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157713920,
+            "FLOATvalue": 2069.000000,
+            "CHARvalue": "",
+            "Ts": 1470300843
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157738496,
+            "FLOATvalue": 2075.000000,
+            "CHARvalue": "",
+            "Ts": 1470300844
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157672960,
+            "FLOATvalue": 2059.000000,
+            "CHARvalue": "",
+            "Ts": 1470300845
+        },
+        {
+            "Pname": "ENGRPM",
+            "INTvalue": 1157382144,
+            "FLOATvalue": 2018.000000,
+            "CHARvalue": "",
+            "Ts": 1470300846
+        },
+        {
+            "Pname": "EOF",
+            "INTvalue": -1,
+            "FLOATvalue": -1.0,
+            "CHARvalue": "-1",
+            "Ts": 1470300847
+        }]
+}

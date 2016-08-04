@@ -10,10 +10,12 @@
 #define OBDV_MAXSTR 32
 
 int main() {
-    int fd, i = 0, n, status, parameter = 3;
+    int fd, i = 0, n, status, parameter = 5;
     char answer[MAX_ANSWER];
+    char name[MAX_ANSWER];
+    sprintf(name,"%ld.json", time(NULL));
     FILE * fp;
-    fp = fopen("file.json", "w+");
+    fp = fopen(name, "w+");
     OBD_value * values[10000]; //TODO change constant
     OBD_vallist lista_val;
     OBD_value *value;
@@ -49,7 +51,7 @@ int main() {
     //        }
     if (n == OBD_OK) {
         fprintf(fp, "{\"Samplelist\":[");
-        for (i = 0; i <= 15; i++) {
+        for (i = 0; i <= 150; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
                 n = read_parameter(fd, parameter, answer, values[i]);

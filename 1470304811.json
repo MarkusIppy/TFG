@@ -1,0 +1,653 @@
+{
+    "Samplelist": [{
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304817
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304818
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304819
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304820
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304822
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304823
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304824
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304825
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304826
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304827
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304829
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304830
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304831
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304832
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304833
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304835
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304836
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304837
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304838
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304839
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304840
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304842
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304843
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304844
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304845
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304846
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304847
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304849
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304850
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304851
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304852
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304853
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304854
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304856
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304857
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304858
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304859
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304860
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304862
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304863
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304864
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304865
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304866
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304867
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304869
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304870
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304871
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304872
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 34,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304873
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "y",
+            "Ts": 1470304874
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304876
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304877
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304878
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304879
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304880
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304881
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304883
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304884
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304885
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304886
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304887
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304889
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304890
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304891
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304892
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304893
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304895
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304896
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304897
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304898
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304899
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304900
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304902
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304903
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304904
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304905
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304906
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304907
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304909
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304910
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304911
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304912
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304913
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304915
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304916
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304917
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304918
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304919
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304920
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304922
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304923
+        },
+        {
+            "Pname": "AIRTEMP",
+            "INTvalue": 35,
+            "FLOATvalue": 0.000000,
+            "CHARvalue": "r",
+            "Ts": 1470304924
+        },
+        {
+            "Pname": "EOF",
+            "INTvalue": -1,
+            "FLOATvalue": -1.0,
+            "CHARvalue": "-1",
+            "Ts": 1470304930
+        }]
+}
