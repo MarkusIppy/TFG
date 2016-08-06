@@ -10,18 +10,13 @@
 #define OBDV_MAXSTR 32
 
 int main() {
-    int fd, i, n, status, parameter = 17;
+    int fd, i = 0, n, status, parameter = 17;
     char answer[MAX_ANSWER];
-    char name[sizeof (long)];
-    OBD_value * values[MAX_ANSWER];
-    OBD_vallist lista_val;
-    OBD_value *value;
-
-    //Open a file with time stamp as name and giving it an extension
+    char name[MAX_ANSWER];
+    sprintf(name,"%ld.json", time(NULL));
     FILE * fp;
-    sprintf(name, "%ld.json", time(NULL));
     fp = fopen(name, "w+");
-    printf("Opening port..\n");
+    OBD_value * values[10000]; //TODO change constant
 
     //Opening OBD port and checking if an error ocurred
     fd = openOBD_port();
@@ -56,7 +51,7 @@ int main() {
 
     if (n == OBD_OK) { //Syncing protocol succeeded
         fprintf(fp, "{\"Samplelist\":[");
-        for (i = 0; i <= 150; i++) {
+        for (i = 0; i<1; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
                 n = read_parameter(fd, parameter, answer, values[i]);

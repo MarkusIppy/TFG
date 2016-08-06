@@ -334,13 +334,19 @@ extern "C" {
         char buffer[OBDV_MAXSTR];
 
         read_msg(fd, buffer, l, timeout);
+        sleep(1);
+        printf("Hey1");
         read_msg(fd, buffer, l, timeout);
+        sleep(1);
+        printf("Hey2");
+        strcat(vinstring, buffer);
+        read_msg(fd, buffer, l, timeout);
+        sleep(1);
+        printf("Hey3");;
         strcat(vinstring, buffer);
         read_msg(fd, buffer, l, timeout);
         strcat(vinstring, buffer);
-        read_msg(fd, buffer, l, timeout);
-        strcat(vinstring, buffer);
-        puts(vinstring);
+        sleep(1);
         return r;
     }
 
@@ -446,10 +452,10 @@ extern "C" {
         int fields, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q;
         unsigned int C1, C2;
 
-        fields = sscanf(vinstring, "0: %2x %2x 01 %2x %2x %2x\n1: %2x %2x %2x %2x %2x %2x %2x\n2: %2x %2x %2x %2x %2x %2x %2x\n", &C1, &C2, &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M, &N, &O, &P, &Q);
+        fields = sscanf(vinstring, "0: %2x %2x 01 %2x %2x %2x 1: %2x %2x %2x %2x %2x %2x %2x 2: %2x %2x %2x %2x %2x %2x %2x ", &C1, &C2, &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M, &N, &O, &P, &Q);
         if (fields >= 2) {
             *Cack = (C1 - 64) * 256 + C2; /* C = (C1 << 8) | C2 */
-            sprintf(VIN, "%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q);
+            sprintf(VIN, "%C%C%C%C%C%0C%C%C%C%C%C%C%C%C%C%C%C", A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q);
         }
 
         return fields;
@@ -569,6 +575,8 @@ extern "C" {
             r = read_VINmsg(fd, answer, MAX_ANSWER, 0);
             printf("Hola el answer es : %s\n", answer);
             fields = separate_VINstring(answer, &commandACK, vinstring); //TODO defininar lo del 2 de fields
+            puts(vinstring);
+            printf("\n Command: %d",commandACK);
             if (fields < 2) {
                 perror("read_parameter: unexpected error when getting answer\n");
                 return OBD_ERROR;
