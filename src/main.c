@@ -13,7 +13,7 @@ int main() {
     int fd, i = 0, n, status, parameter = 17;
     char answer[MAX_ANSWER];
     char name[MAX_ANSWER];
-    sprintf(name,"%ld.json", time(NULL));
+    sprintf(name,"%ld.txt", time(NULL));
     FILE * fp;
     fp = fopen(name, "w+");
     OBD_value * values[10000]; //TODO change constant
@@ -50,8 +50,7 @@ int main() {
     //        }
 
     if (n == OBD_OK) { //Syncing protocol succeeded
-        fprintf(fp, "{\"Samplelist\":[");
-        for (i = 0; i<1; i++) {
+        for (i = 1; i<10; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
                 n = read_parameter(fd, parameter, answer, values[i]);
@@ -61,7 +60,6 @@ int main() {
                 //                values[i]->obdv_parameter = ENGINE_RPM;
                 sleep(1); //TODO ver tiempo
                 if (n < 0) { //If something went wrong or finished reading, reset OBD and close the file
-                    fprintf(fp, "{\"Pname\":\"EOF\",\"INTvalue\":-1,\"FLOATvalue\":-1.0,\"CHARvalue\":\"-1\",\"Ts\":%ld}]}", time(NULL));
                     write_atmsg(fd, "Z");
                     sleep(1);
                     close(fd);
@@ -71,7 +69,6 @@ int main() {
                 }
             }
         }
-        fprintf(fp, "{\"Pname\":\"EOF\",\"INTvalue\":-1,\"FLOATvalue\":-1.0,\"CHARvalue\":\"-1\",\"Ts\":%ld}]}", time(NULL));
     } else {
         fprintf(stderr, "Error syncing protocol\n"); //Syncing protocol did not succeed
     }
