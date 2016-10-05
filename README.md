@@ -1,2 +1,2 @@
 # TFG
-This repository his for communicating with the OBD port of a vehicle
+This repository is for communicating with the OBD port of a vehicle
