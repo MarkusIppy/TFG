@@ -152,7 +152,7 @@ extern "C" {
      *              0 : Everything went as desired.
      *              -1 : Something went wrong.
      */
-    int vehicle(FILE *fp, int fd) {
+    int drives(FILE *fp, int fd) {
         char VIN[30];
         int n = 0, PId;
         
