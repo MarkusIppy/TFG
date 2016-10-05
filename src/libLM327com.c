@@ -73,7 +73,7 @@ extern "C" {
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
      */
-    void loadobdparameters(FILE *fp) {
+    void obdparameter(FILE *fp) {
         int i;
 
         for (i = 0; obd_parameters[i].obdp_code != OBDCMDCODE_ENDOFLIST; i++) {
@@ -88,11 +88,11 @@ extern "C" {
      *              fd: file descriptor to write in.
      * Return value:
      *              0 : Everything went as desired.
-     *              -1 : Something went wrong 
+     *              -1 : Something went wrong. 
      */
-    int carmodel(FILE *fp, int fd) {
+    int model(FILE *fp, int fd, char *MVIN) {
         int n, MCC, MWeight, MHP;
-        char MFuel, MEngine[20], MVIN[30];
+        char MFuel, MEngine[20];
         OBD_value * values;
         values = obd_newvalue();
         if (values->next == NULL) {
@@ -110,6 +110,61 @@ extern "C" {
         return 0;
     }
 
+       /* Prints text code of PERSON table for the database.
+     * Arguments:
+     *              fp: This is the pointer to a FILE object that identifies the
+     *                  stream.
+     * Return value:
+     *              PId: Identificator of the person.
+     */
+    int person(FILE *fp) {
+        int PId;
+        char PName[20];
+
+        fprintf(fp, "INSERT INTO PERSON (PId, PName) VALUES (%d, %s);", PId, PName);
+        return PId;
+    }
+    
+       /* Prints text code of VEHICLE table for the database.
+     * Arguments:
+     *              fp: This is the pointer to a FILE object that identifies the
+     *                  stream.
+     *              fd: file descriptor to write in.
+     * Return value:
+     *              0 : Everything went as desired.
+     *              -1 : Something went wrong.
+     */
+    int vehicle(FILE *fp, int fd) {
+        char VIN[30];
+        int n = 0;
+        
+        n = model(fp, fd, VIN);
+        fprintf(fp, "INSERT INTO VEHICLE (VVIN, MVIN) VALUES (%s, %s);", VIN, VIN);
+        return n;
+    }
+    
+        /* Prints text code of Drives table for the database.
+     * Arguments:
+     *              fp: This is the pointer to a FILE object that identifies the
+     *                  stream.
+     *              fd: file descriptor to write in.
+     * Return value:
+     *              0 : Everything went as desired.
+     *              -1 : Something went wrong.
+     */
+    int vehicle(FILE *fp, int fd) {
+        char VIN[30];
+        int n = 0, PId;
+        
+        PId = person(fp);
+        n = model(fp, fd, VIN);
+        fprintf(fp, "INSERT INTO Drives (PId, VVIN) VALUES (%d, %s);", PId, VIN);
+        return n;
+    }
+    
+    
+    
+    
     /* Searchs command code to get the number of bytes of its answer.
      * Arguments: 
      *              cmd: code for OBD command.
