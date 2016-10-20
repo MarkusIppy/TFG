@@ -7,12 +7,14 @@
 #include "OBDparameters.h"
 
 #define MAX_ANSWER 500
-#define OBDV_MAXSTR 32
+#define OBDV_MAXSTR 40
 
 int main() {
-    int fd, i = 0, n, status, parameter = 17;
+    int fd, i = 0, n, status, parameter = 3;
     char answer[MAX_ANSWER];
     char name[MAX_ANSWER];
+    char MVIN[MAX_ANSWER];
+    int N, ID;
     sprintf(name,"%ld.txt", time(NULL));
     FILE * fp;
     fp = fopen(name, "w+");
@@ -20,7 +22,7 @@ int main() {
 
     //Opening OBD port and checking if an error ocurred
     fd = openOBD_port();
-    if (fd < 0) {
+    if (fd == OBD_ERRPORT) {
         fprintf(stderr, "Error while opening port\n");
         exit(1);
     }
@@ -28,6 +30,7 @@ int main() {
     //Syncing protocol
     printf("Syncing port..\n");
     n = sync_protocol(fd);
+   
     while ((status = read_msg(fd, answer, MAX_ANSWER, -1)) > 0); //TODO no se la validez de esto
     //    if (status != OBD_EMPTY)
     //    {
@@ -50,7 +53,15 @@ int main() {
     //        }
 
     if (n == OBD_OK) { //Syncing protocol succeeded
-        for (i = 1; i<10; i++) {
+        //TXT DATA
+        sleep(2);
+        obdparameter(fp);
+        ID = person(fp);
+        N = model(fp, fd, MVIN);
+        vehicle(fp, MVIN);
+        drives(fp, MVIN, ID);
+        track(fp, MVIN, ID);
+        for (i = 1; i<=10; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
                 n = read_parameter(fd, parameter, answer, values[i]);
@@ -65,12 +76,13 @@ int main() {
                     close(fd);
                     return 0;
                 } else {
-                    timestamp(answer, fp, parameter, values[i]); //Printing on the file
+                    sample(answer, fp, parameter, values[i]);
                 }
             }
         }
     } else {
         fprintf(stderr, "Error syncing protocol\n"); //Syncing protocol did not succeed
+        return OBD_SYNC;
     }
 
     //Reset OBD and close the file

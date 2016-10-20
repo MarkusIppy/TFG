@@ -28,7 +28,8 @@ extern "C" {
 #elif TARGET_OS_IPHONE
     // iOS device
 #elif TARGET_OS_MAC
-#define OBD_PORT "/dev/cu.OBDII-Port"
+//#define OBD_PORT "/dev/cu.OBDII-Port"
+#define OBD_PORT "/dev/cu.OBDLinkLX-STN-SPP"
     // Other kinds of Mac OS
 #else
 #error "Unknown Apple platform"
@@ -56,11 +57,15 @@ extern "C" {
 #define LM327_EOLSTRING "\r"
     /* Initialization command for LM327 */
 #define OBD_INITSTRING "e0"
-#define OBDV_MAXSTR 32
+#define OBDV_MAXSTR 40
 
     /*Errors definition*/
-    typedef enum {
-        OBD_END = -6,
+    typedef enum {       
+        OBD_END = -10,
+        OBD_ERRPORT = -9,
+        OBD_SYNC = -8,
+        OBD_WRITE = -7,
+        OBD_FIELDS = -6,
         OBD_COMMAND = -5,
         OBD_EMPTY = -4,
         OBD_ERROR = -3,
@@ -90,9 +95,16 @@ extern "C" {
 
 
     char *cmd_description(t_obdcmdcode cmd);
+    void obdparameter(FILE *fp);
+    int model(FILE *fp, int fd, char *MVIN);
+    int person(FILE *fp);
+    void vehicle(FILE *fp, char *VIN);
+    void drives(FILE *fp, char *VIN, int PId);
+    void track(FILE *fp, char *VIN, int PId);
+    int gps_data(FILE *fp);
     int cmd_fields(t_obdcmdcode cmd);
     void read_timeout(int sig);
-    void timestamp(char *buffer, FILE *fp, int parameter, OBD_value *value);
+    void sample(char *buffer, FILE *fp, int parameter, OBD_value *value);
     int openOBD_port();
     int write_port(int fd, char *buffer, int l);
     int write_atmsg(int fd, char *msg);

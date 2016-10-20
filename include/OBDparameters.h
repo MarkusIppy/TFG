@@ -51,9 +51,12 @@ extern "C" {
         char *obdp_parname;
         /* String describing parameter */
         char *obdp_desc;
+        /* Data type of answer */
+        int obdp_data;      
     } t_obdparameter;
 
     //#define PID_0_20            0x0100    //PID 0 - 20 supported
+
 #define PID_0_20_DESC               "PID 0100 - 0120 Supported"
     //#define STATUS_DTC          0x0101    ///
     //#define STATUS_DTC_DESC             "Status since DTC Cleared"
