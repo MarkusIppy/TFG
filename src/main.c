@@ -10,7 +10,7 @@
 #define OBDV_MAXSTR 40
 
 int main() {
-    int fd, i = 0, n, status, parameter = 3;
+    int fd, i = 1, j = 0, n, status, parameter[10] = {3,4,5,6,7,8,9,10,11,12};
     char answer[MAX_ANSWER];
     char name[MAX_ANSWER];
     char MVIN[MAX_ANSWER];
@@ -61,10 +61,11 @@ int main() {
         vehicle(fp, MVIN);
         drives(fp, MVIN, ID);
         track(fp, MVIN, ID);
-        for (i = 1; i<=10; i++) {
+        while (n >= 0){
+        //for (i = 1; i<=10; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
-                n = read_parameter(fd, parameter, answer, values[i]);
+                n = read_parameter(fd, parameter[j], answer, values[i]);
                 //                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
                 //                obd_appendvalue(&lista_val, values[i]);
                 //                values[i]->obdv_ts = time(NULL);
@@ -76,9 +77,13 @@ int main() {
                     close(fd);
                     return 0;
                 } else {
-                    sample(answer, fp, parameter, values[i]);
+                    sample(answer, fp, parameter[j], values[i]);
                 }
             }
+            i++;
+            j++;
+            if (j == 10)
+                j = 0;
         }
     } else {
         fprintf(stderr, "Error syncing protocol\n"); //Syncing protocol did not succeed
