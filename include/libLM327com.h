@@ -37,7 +37,7 @@ extern "C" {
 #elif __linux__
     // linux
     //#define OBD_PORT "/dev/ttyS0"
-#define OBD_PORT "/dev/tty"
+#define OBD_PORT "/dev/rfcomm0"
 #elif __unix__ // all unices not caught above
     // Unix
 #elif defined(_POSIX_VERSION)

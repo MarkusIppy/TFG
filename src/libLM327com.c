@@ -67,13 +67,13 @@ extern "C" {
         }
         return NULL;
     }
-    
+
     /* Allocates memory for new OBD_value struct.
      */
     OBD_value *obd_newvalue() {
         return (OBD_value *) malloc(sizeof (OBD_value));
     }
-    
+
     /* Prints text code of OBD PARAMETER table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
@@ -83,10 +83,10 @@ extern "C" {
         int i;
 
         for (i = 0; obd_parameters[i].obdp_code != OBDCMDCODE_ENDOFLIST; i++) {
-            fprintf(fp, "INSERT INTO OBD_PARAMETER (OBDHexCode, OBDLabel) VALUES (%d, %s);\n", obd_parameters[i].obdp_code, obd_parameters[i].obdp_desc);
+            fprintf(fp, "INSERT INTO OBD_PARAMETER (OBDHexCode, OBDLabel) VALUES (%d, \"%s\");\n", obd_parameters[i].obdp_code, obd_parameters[i].obdp_desc);
         }
     }
-    
+
     /* Prints text code of the car MODEL table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
@@ -103,7 +103,7 @@ extern "C" {
         char MVIN[MAX_ANSWER];
         int VINparameter = 17;
         OBD_value * value;
-        
+
         value = obd_newvalue();
         if (value->next == NULL) {
             n = read_parameter(fd, VINparameter, MVIN, value);
@@ -114,7 +114,7 @@ extern "C" {
                 close(fd);
                 return -1;
             } else {
-                fprintf(fp, "INSERT INTO MODEL (MVIN, MCC, MFuel, MEngine, MHP, MWeight) VALUES (%s, %d, %c, %s, %d, %d);\n", value->obdv_value.str, MCC, MFuel, MEngine, MHP, MWeight);
+                fprintf(fp, "INSERT INTO MODEL (MVIN, MCC, MFuel, MEngine, MHP, MWeight) VALUES (\"%s\", %d, \"%c\", \"%s\", %d, %d);\n", value->obdv_value.str, MCC, MFuel, MEngine, MHP, MWeight);
                 strncpy(VIN, value->obdv_value.str, OBDV_MAXSTR);
             }
         }
@@ -132,10 +132,10 @@ extern "C" {
         int PId = 999;
         char PName[20] = "JUAN";
 
-        fprintf(fp, "INSERT INTO PERSON (PId, PName) VALUES (%d, %s);\n", PId, PName);
+        fprintf(fp, "INSERT INTO PERSON (PId, PName) VALUES (%d, \"%s\");\n", PId, PName);
         return PId;
     }
-    
+
     /* Prints text code of VEHICLE table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
@@ -146,9 +146,9 @@ extern "C" {
      *              -1 : Something went wrong.
      */
     void vehicle(FILE *fp, char *VIN) {
-        fprintf(fp, "INSERT INTO VEHICLE (VVIN, MVIN) VALUES (%s, %s);\n", VIN, VIN);
+        fprintf(fp, "INSERT INTO VEHICLE (VVIN, MVIN) VALUES (\"%s\", \"%s\");\n", VIN, VIN);
     }
-    
+
     /* Prints text code of Drives table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
@@ -159,9 +159,9 @@ extern "C" {
      *              -1 : Something went wrong.
      */
     void drives(FILE *fp, char *VIN, int PId) {
-        fprintf(fp, "INSERT INTO Drives (PId, VVIN) VALUES (%d, %s);\n", PId, VIN);
+        fprintf(fp, "INSERT INTO Drives (PId, VVIN) VALUES (%d, \"%s\");\n", PId, VIN);
     }
-    
+
     /* Prints text code of TRACK table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
@@ -175,11 +175,11 @@ extern "C" {
         int TId = 100, TDistance, TArea, TInitPos, TPolyLine;
         time_t TInitSec = time(NULL);
         struct tm tm = *localtime(&TInitSec);
-        
-        fprintf(fp, "INSERT INTO TRACK (TId, TInitDate, TInitHour, TInitSec, TDistance, TArea, TPolyLine, PId, VVIN) VALUES (%d, %d-%d-%d, %d:%d:%d, %ld, %d, %d, %d, %d, %s);\n", TId, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, TInitSec, TDistance, TArea, TPolyLine, PId, VIN);
+
+        fprintf(fp, "INSERT INTO TRACK (TId, TInitDate, TInitHour, TInitSec, TDistance, TArea, TPolyLine, PId, VVIN) VALUES (%d, %d-%d-%d, %d:%d:%d, %ld, %d, %d, %d, %d, \"%s\");\n", TId, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, TInitSec, TDistance, TArea, TPolyLine, PId, VIN);
     }
-      
-   /* Prints text code of GPS DATA table for the database.
+
+    /* Prints text code of GPS DATA table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
@@ -190,14 +190,11 @@ extern "C" {
         float GPSLongitude, GPSLatitude;
         time_t GPSTs = time(NULL);
         struct tm tm = *localtime(&GPSTs);
-        
+
         fprintf(fp, "INSERT INTO GPS_DATA (GPSTs, GPSLongitude, GPSLatitude) VALUES (%ld, %f, %f);", GPSTs, GPSLongitude, GPSLatitude);
         return GPSTs;
     }
-    
-    
-    
-    
+
     /* Searchs command code to get the number of bytes of its answer.
      * Arguments: 
      *              cmd: code for OBD command.
@@ -233,20 +230,20 @@ extern "C" {
         time_t ltime;
         char SName [5] = "S0001";
         int id = 5;
-        
+
         //        struct tm *Tm;
 
         ltime = time(NULL);
         //        Tm = localtime(&ltime);
         //        fprintf(fp, "%s;%ld\n", buffer, ltime);
-        switch(obd_parameters[parameter].obdp_data){
+        switch (obd_parameters[parameter].obdp_data) {
             case(0):
-                fprintf(fp, "INSERT INTO SAMPLE (STs, OBDHexCode, SName, SFloatValue, SIntValue, TId) VALUES (%ld, %d, %s, NULL, %d, %d);\n", value->obdv_ts, value->obdv_parameter, SName, value->obdv_value.i, id);
+                fprintf(fp, "INSERT INTO SAMPLE (STs, OBDHexCode, SName, SFloatValue, SIntValue, TId) VALUES (%ld, %d, \"%s\", NULL, %d, %d);\n", value->obdv_ts, value->obdv_parameter, SName, value->obdv_value.i, id);
                 break;
             case(1):
-                fprintf(fp, "INSERT INTO SAMPLE (STs, OBDHexCode, SName, SFloatValue, SIntValue, TId) VALUES (%ld, %d, %s, %f, NULL, %d);\n", value->obdv_ts, value->obdv_parameter, SName, value->obdv_value.w, id);
+                fprintf(fp, "INSERT INTO SAMPLE (STs, OBDHexCode, SName, SFloatValue, SIntValue, TId) VALUES (%ld, %d, \"%s\", %f, NULL, %d);\n", value->obdv_ts, value->obdv_parameter, SName, value->obdv_value.w, id);
                 break;
-        }    
+        }
         //fprintf(fp, "{\"Pname\":\"%s\",\"INTvalue\":%d,\"FLOATvalue\":%f,\"CHARvalue\":\"%s\",\"Ts\":%ld},\n", obd_parameters[parameter].obdp_parname, value->obdv_value.i, value->obdv_value.w, value->obdv_value.str, value->obdv_ts);
     }
 
@@ -258,12 +255,12 @@ extern "C" {
     int openOBD_port() {
         char *portname = OBD_PORT;
         int fd;
-
+        printf("HOLA %s\n", portname);
         fd = open(portname, O_RDWR | O_NOCTTY);
-        if (fd == -1){
+        if (fd == -1) {
             perror("openOBD_port: Unable to open communication port\n");
             return OBD_ERRPORT;
-        }else
+        } else
             fcntl(fd, F_SETFL, 0);
         return (fd);
     }
@@ -281,7 +278,7 @@ extern "C" {
         int n;
 
         n = write(fd, buffer, l);
-        if (n < 0){
+        if (n < 0) {
             perror("write_port: error sending bytes to ELM port");
             return OBD_WRITE;
         }
@@ -479,8 +476,8 @@ extern "C" {
     int read_VINmsg(int fd, char *vinstring, int l, int timeout) {
         int i, r, bytes = 0;
         char buffer[OBDV_MAXSTR];
-        
-        for (i = 0; i <= 3; i++){
+
+        for (i = 0; i <= 3; i++) {
             r = read_msg(fd, buffer, l, timeout);
             if (r <= 0)
                 return r;
@@ -492,6 +489,46 @@ extern "C" {
         return bytes;
     }
 
+    /* 
+     * Reads input from OBD until first NL when VIN is asked, removing it from 
+     * the string and adding a zero at the end.
+     * This function goes byte by byte cleaning the output information for a better
+     * output. 
+     * Arguments: 
+     *              fd: Open file descriptor to read from.
+     *              multstring: pointer of the string in which to store the information.
+     *              l: maximum length of the buffer.
+     *              timeout : 
+     *                          > 0 time to wait for input before aborting read.
+     *                          0 > wait input forever.
+     *                          -1  uses non blocking input and returns inmediately 
+     *                              if input stream is empty in this moment.
+     * The out parameter is an integer showing the error or the length of what is
+     * being read.
+     * Return value:
+     *          bytes: read n characters not including EOL nor final zero
+     *          OBD_EMPTY: non block input returned inmediately when using non 
+     *                     blocking input.
+     *          OBD_CLOSED: fd is closed.
+     *          OBD_TIMEOUT: blocking input didn't answer before specified timeout.
+     *          OBD_ERROR: other errors.
+     */
+    int read_MULTmsg(int fd, char *multstring, int l, int timeout) {
+        int i, r, bytes = 0;
+        char buffer[OBDV_MAXSTR];
+
+        for (i = 0; i <= 2; i++) {
+            r = read_msg(fd, buffer, l, timeout);
+            if (r <= 0)
+                return r;
+            bytes = r + bytes;
+            if (i != 0)
+                strcat(multstring, buffer);
+            sleep(2);
+        }
+        return bytes;
+    }
+    
     /* This function makes sure the buffer is empty and OBD is ready to work 
      * correctly by writing a neutral command and checking the expected answer. 
      * Arguments:
@@ -510,6 +547,7 @@ extern "C" {
 #endif
         while (1) {
             int status;
+            int bytes;
             while ((status = read_msg(fd, answer, MAX_ANSWER, -1)) > 0);
             if (status != OBD_EMPTY) {
                 perror("error emptying buffer");
@@ -519,12 +557,13 @@ extern "C" {
             fprintf(stderr, "DEBUG::sync_protocol, input empty\n");
 #endif
             write_atmsg(fd, OBD_INITSTRING);
+            sleep(1);
 #if DEBUGLEVEL
             fprintf(stderr, "DEBUG::sync_protocol, sent command echo off (AT%s)\n", OBD_INITSTRING);
 #endif
-            read_msg(fd, answer, MAX_ANSWER, 0); //TODO por que timeout= 0 y no guardamos su salida
+            bytes = read_msg(fd, answer, MAX_ANSWER, 0); //TODO por que timeout= 0 y no guardamos su salida
 #if DEBUGLEVEL
-            fprintf(stderr, "DEBUG::sync_protocol, read answer=%s\n", answer);
+            fprintf(stderr, "DEBUG::sync_protocol, read answer=%s y bytes =%d\n", answer, bytes);
 #endif
             if (strncmp(answer, "OK", strlen("OK")) == 0) {
                 n = 0;
@@ -537,8 +576,6 @@ extern "C" {
     //    OBD_vallist *obd_createlist() {
     //        return (OBD_vallist*) malloc(sizeof (OBD_vallist));
     //    }
-
-
 
     /* Shifts to next struct of a list.
      */
@@ -599,15 +636,38 @@ extern "C" {
 
         fields = sscanf(vinstring, "0: %2x %2x 01 %2x %2x %2x 1: %2x %2x %2x %2x %2x %2x %2x 2: %2x %2x %2x %2x %2x %2x %2x ", &C1, &C2, &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M, &N, &O, &P, &Q);
         if (fields >= 2) {
-            *Cack = (C1 - 64) * 256 + C2; /* C = (C1 << 8) | C2 */
+            *Cack = (C1 - 64) * 256 + C2; // C = (C1 << 8) | C2 
             sprintf(VIN, "%C%C%C%C%C%C%C%C%C%C%C%C%C%C%C%C%C", A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q);
-        }
-        else
+        } else
             return OBD_FIELDS;
 
         return fields;
     }
 
+    /* This function separates the hexadecimal string given by the OBD when VIN
+     * is asked modified by us into 2 digits elements and storing them into their
+     * corresponding letters for calculating afterwards the real value.
+     * Arguments:
+     *              vinstring: pointer to the string of the output for the VIN command.
+     *              VIN: pointer to the translated string of the VIN.
+     *              Cack: command value for checking.
+     * Return value:
+     *              fields: number of fields read in the string.
+     *              OBD_FIELDS: Error when getting the answer.
+     */
+    int separate_MULTstring(char *multstring, char *MULT) {
+        int fields, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q;
+        unsigned int C1, C2;
+
+        fields = sscanf(multstring, "0: %2x %2x %2x %2x %2x %2x 1: %2x %2x %2x %2x %2x %2x %2x ", &A, &B, &C, &D, &E, &F, &G, &H, &I, &J, &K, &L, &M);
+        if (fields >= 2) { 
+            sprintf(MULT, "%C%C%C%C%C%C%C%C%C%C%C%C%C", A, B, C, D, E, F, G, H, I, J, K, L, M);
+        } else
+            return OBD_FIELDS;
+
+        return fields;
+    }
+    
     /* This function takes the command which you want to know the information
      * from, writes it into the OBD, reads the answer, translates it into human
      * readable information.
@@ -728,16 +788,16 @@ extern "C" {
             }
         } else {
             r = read_VINmsg(fd, answer, MAX_ANSWER, 0);
-            //printf("Hola el answer es : %s\n", answer); //TODO eliminar es solo chequeo
+            printf("Hola el answer es :%s\n", answer); //TODO eliminar es solo chequeo
             fields = separate_VINstring(answer, &commandACK, vinstring); //TODO defininar lo del 2 de fields
             puts(vinstring);
             //printf("\n Command: %d", commandACK);
             if (fields < 2) {
-                perror("read_parameter: unexpected error when getting answer\n");
-                return OBD_ERROR;
+                perror("read_parameter: unexpected error when getting VIN answer\n");
+                return OBD_FIELDS;
             } else {
                 if (obd_parameters[i].obdp_code != commandACK) {
-                    perror("read_parameter: error matching command with answer\n");
+                    perror("read_parameter: error matching command with VIN answer\n");
                     return OBD_COMMAND;
                 }
                 value->obdv_parameter = obd_parameters[i].obdp_code;
@@ -749,7 +809,7 @@ extern "C" {
 
     }
 
-
+    
 #ifdef __cplusplus
 }
 #endif

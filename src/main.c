@@ -10,12 +10,12 @@
 #define OBDV_MAXSTR 40
 
 int main() {
-    int fd, i = 1, j = 0, n, status, parameter[10] = {3,4,5,6,7,8,9,10,11,12};
+    int fd, i = 1, j = 0, n, status, parameter[10] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     char answer[MAX_ANSWER];
     char name[MAX_ANSWER];
     char MVIN[MAX_ANSWER];
     int N, ID;
-    sprintf(name,"%ld.txt", time(NULL));
+    sprintf(name, "%ld.txt", time(NULL));
     FILE * fp;
     fp = fopen(name, "w+");
     OBD_value * values[10000]; //TODO change constant
@@ -30,7 +30,7 @@ int main() {
     //Syncing protocol
     printf("Syncing port..\n");
     n = sync_protocol(fd);
-   
+
     while ((status = read_msg(fd, answer, MAX_ANSWER, -1)) > 0); //TODO no se la validez de esto
     //    if (status != OBD_EMPTY)
     //    {
@@ -57,12 +57,12 @@ int main() {
         sleep(2);
         obdparameter(fp);
         ID = person(fp);
-        N = model(fp, fd, MVIN);
-        vehicle(fp, MVIN);
-        drives(fp, MVIN, ID);
-        track(fp, MVIN, ID);
-        while (n >= 0){
-        //for (i = 1; i<=10; i++) {
+        //N = model(fp, fd, MVIN);
+        //vehicle(fp, MVIN);
+        //drives(fp, MVIN, ID);
+        //track(fp, MVIN, ID);
+        while (n >= 0) {
+            //for (i = 1; i<=10; i++) {
             values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
                 n = read_parameter(fd, parameter[j], answer, values[i]);
