@@ -10,7 +10,7 @@
 #define OBDV_MAXSTR 40
 
 int main() {
-    int fd, i = 1, j = 0, n, status, parameter[10] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    int fd, i = 1, j = 0, n, status, parameters[6] = {3, 4, 5, 6, 7, 8};
     char answer[MAX_ANSWER];
     char name[MAX_ANSWER];
     char MVIN[MAX_ANSWER];
@@ -63,27 +63,29 @@ int main() {
         //track(fp, MVIN, ID);
         while (n >= 0) {
             //for (i = 1; i<=10; i++) {
-            values[i] = obd_newvalue();
+            /*values[i] = obd_newvalue();
             if (values[i]->next == NULL) {
-                n = read_parameter(fd, parameter[j], answer, values[i]);
-                //                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
-                //                obd_appendvalue(&lista_val, values[i]);
-                //                values[i]->obdv_ts = time(NULL);
-                //                values[i]->obdv_parameter = ENGINE_RPM;
-                sleep(1); //TODO ver tiempo
-                if (n < 0) { //If something went wrong or finished reading, reset OBD and close the file
-                    write_atmsg(fd, "Z");
-                    sleep(1);
-                    close(fd);
-                    return 0;
-                } else {
-                    sample(answer, fp, parameter[j], values[i]);
+                n = read_parameter(fd, parameters, answer, values[i]);*/
+            n = read_MULTparameter(fd, parameters, answer, values, i);
+            //                strncpy(values[i]->obdv_value.str, answer, OBDV_MAXSTR);
+            //                obd_appendvalue(&lista_val, values[i]);
+            //                values[i]->obdv_ts = time(NULL);
+            //                values[i]->obdv_parameter = ENGINE_RPM;
+            //sleep(10); //TODO ver tiempo
+            if (n < 0) { //If something went wrong or finished reading, reset OBD and close the file
+                write_atmsg(fd, "Z");
+                sleep(1);
+                close(fd);
+                return n;
+            } else {
+                for (j = 0; j <= 5; j++) {
+                    sample(answer, fp, parameters[j], values[i]);
+                    i++;
                 }
             }
-            i++;
-            j++;
-            if (j == 10)
-                j = 0;
+            sleep(5); //TODO ver tiempo
+            while ((status = read_msg(fd, answer, MAX_ANSWER, -1)) > 0);
+            sleep(5);
         }
     } else {
         fprintf(stderr, "Error syncing protocol\n"); //Syncing protocol did not succeed

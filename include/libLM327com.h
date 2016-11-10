@@ -47,7 +47,7 @@ extern "C" {
 #endif
 
 #include "OBDparameters.h"
-#define HEXLENGTH 5
+#define HEXLENGTH 32
 #define ATMSGLEN 500
 #define OBDMSGLEN 500
 #define MAX_ANSWER 500
@@ -96,7 +96,7 @@ extern "C" {
 
     char *cmd_description(t_obdcmdcode cmd);
     void obdparameter(FILE *fp);
-    int model(FILE *fp, int fd, char *MVIN);
+    //int model(FILE *fp, int fd, char *MVIN);
     int person(FILE *fp);
     void vehicle(FILE *fp, char *VIN);
     void drives(FILE *fp, char *VIN, int PId);
@@ -111,6 +111,7 @@ extern "C" {
     int write_obdmsg(int fd, char *msg);
     int read_port(int fd, char *buffer, int l, int timeout);
     int read_msg(int fd, char *buffer, int l, int timeout);
+    int read_MULTmsg(int fd, char *multstring, int l, int timeout);
     int read_VINmsg(int fd, char *vinstring, int l, int timeout);
     int sync_protocol(int fd);
     OBD_value *obd_newvalue();
@@ -118,7 +119,9 @@ extern "C" {
     int hex2int(char *answer);
     int separate_string(char *answer, unsigned int *Cack, unsigned int *A, unsigned int *B, unsigned int *C, unsigned int *D);
     int separate_VINstring(char *answer, unsigned int *Cack, char *vinstring);
-    int read_parameter(int fd, int hexadecimal, char *answer, OBD_value *value);
+    int separate_MULTstring(char *multstring, unsigned int *Cack, unsigned int mult[]);
+    //int read_parameter(int fd, int pid, char *answer, OBD_value *value);
+    int read_MULTparameter(int fd, int pid[], char *answer, OBD_value *value[], int w);
 
 #ifdef __cplusplus
 }
