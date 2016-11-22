@@ -19,8 +19,10 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 #include "OBDparameters.h"
 #include "libLM327com.h"
+#include "gps.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -72,6 +74,12 @@ extern "C" {
      */
     OBD_value *obd_newvalue() {
         return (OBD_value *) malloc(sizeof (OBD_value));
+    }
+    
+    /* Allocates memory for new GPS_value struct.
+     */
+    GPS_value *gps_newvalue() {
+        return (GPS_value *) malloc(sizeof (GPS_value));
     }
 
     /* Prints text code of OBD PARAMETER table for the database.
@@ -187,13 +195,8 @@ extern "C" {
      * Return value:
      *              GPSTs : Timestamp of the GPS data.
      */
-    int gps_data(FILE *fp) {
-        float GPSLongitude, GPSLatitude;
-        time_t GPSTs = time(NULL);
-        struct tm tm = *localtime(&GPSTs);
-
-        fprintf(fp, "INSERT INTO GPS_DATA (GPSTs, GPSLongitude, GPSLatitude) VALUES (%ld, %f, %f);", GPSTs, GPSLongitude, GPSLatitude);
-        return GPSTs;
+    void gps_sample(FILE *fp, GPS_value *value) {
+        fprintf(fp, "INSERT INTO GPS_DATA (GPSTs, GPSLongitude, GPSLatitude) VALUES (%ld, %f, %f);\n", value->gpsv_ts, value->gps_lon, value->gps_lat);
     }
 
     /* Searchs command code to get the number of bytes of its answer.
@@ -253,8 +256,9 @@ extern "C" {
      *                  fd: file descriptor.
      *                  OBD_PORT: error while opening port.
      */
-    int openOBD_port() {
-        char *portname = OBD_PORT;
+    int openOBD_port(char *portname) {
+        if (portname == NULL)
+            portname = OBD_PORT;
         int fd;
         fd = open(portname, O_RDWR | O_NOCTTY);
         if (fd == -1) {
@@ -666,7 +670,7 @@ extern "C" {
         fields = sscanf(multstring, "0: %2x %2x %2x %2x %2x %2x 1: %2x %2x %2x %2x %2x %2x %2x 2: %2x %2x %2x %2x %2x %2x %2x ", &C1, &mult[0], &mult[1], &mult[2], &mult[3], &mult[4], &mult[5], &mult[6], &mult[7], &mult[8], &mult[9], &mult[10], &mult[11], &mult[12], &mult[13], &mult[14], &mult[15], &mult[16], &mult[17], &mult[18]);
         printf("letters = ");
         for (i = 0; i < 18; i++)
-            printf("%d ",mult[i]);
+            printf("%u ", mult[i]);
         printf("\n");
         if (fields < 2)
             return OBD_FIELDS;
@@ -840,7 +844,7 @@ extern "C" {
             for (i = 0; i <= 5; i++) {
                 if (obd_parameters[pid[i]].obdp_code != letters[j]) {
                     perror("read_parameter: error matching command with answer\n");
-                    printf("code: %d  command: %u y letters: %u i = %d j = %d \n", obd_parameters[pid[i]].obdp_code, commandACK, letters[j], i, j);
+                    printf("code: %d  command: %u y letters: %u i = %d j = %u \n", obd_parameters[pid[i]].obdp_code, commandACK, letters[j], i, j);
                     return OBD_COMMAND;
                 }
                 value[w] = obd_newvalue();
@@ -930,6 +934,24 @@ extern "C" {
             }
         }
         return r;
+    }
+
+    void gps_collect(struct gps_data_t gpsdata, GPS_value *value[], int w) {
+        struct timespec gps_pause;
+        struct timeval current_time;
+        gps_pause.tv_sec = 0;
+        gps_pause.tv_nsec = 250000000;
+        
+        value[w] = gps_newvalue();
+        (void) gps_read(&gpsdata);
+        if (value[w]->next == NULL){
+            value[w]->gps_lat = gpsdata.fix.latitude;
+            value[w]->gps_lon = gpsdata.fix.longitude;
+            value[w]->gpsv_ts = time(NULL);
+        }
+        //gettimeofday(&current_time, NULL);
+        //printf("systemtime: %f, online: %f, , gdop:%f, lat: %f, long: %f\n", current_time.tv_sec + (current_time.tv_usec / 1000000.0), gpsdata.online, gpsdata.dop.pdop, gpsdata.fix.latitude, gpsdata.fix.longitude);
+        //(void) gps_close(&gpsdata);
     }
 
 

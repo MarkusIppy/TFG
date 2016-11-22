@@ -36,7 +36,7 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -46,6 +46,11 @@
             <pElem>include</pElem>
           </incDir>
         </cTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lgps</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="include/OBDparameters.h" ex="false" tool="3" flavor2="0">
       </item>

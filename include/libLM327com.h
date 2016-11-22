@@ -14,7 +14,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 #ifdef _WIN32
     //define something for Windows (32-bit and 64-bit, this part is common)
 #define OBD_PORT "COM8"
@@ -28,7 +27,7 @@ extern "C" {
 #elif TARGET_OS_IPHONE
     // iOS device
 #elif TARGET_OS_MAC
-//#define OBD_PORT "/dev/cu.OBDII-Port"
+    //#define OBD_PORT "/dev/cu.OBDII-Port"
 #define OBD_PORT "/dev/cu.OBDLinkLX-STN-SPP"
     // Other kinds of Mac OS
 #else
@@ -47,10 +46,14 @@ extern "C" {
 #endif
 
 #include "OBDparameters.h"
+#include "gps.h"
+    
 #define HEXLENGTH 32
 #define ATMSGLEN 500
 #define OBDMSGLEN 500
 #define MAX_ANSWER 500
+    /* NL character found in LM327 answers */
+#define LM327_NL '\n'
     /* Terminator character of LM327 answers */
 #define LM327_EOL '\r'
     /* Terminator to end LM327 command strings */
@@ -60,7 +63,7 @@ extern "C" {
 #define OBDV_MAXSTR 40
 
     /*Errors definition*/
-    typedef enum {       
+    typedef enum {
         OBD_END = -10,
         OBD_ERRPORT = -9,
         OBD_SYNC = -8,
@@ -93,6 +96,17 @@ extern "C" {
         OBD_value *last;
     } OBD_vallist;
 
+    typedef struct gpsvalue_str {
+        struct gpsvalue_str *next;
+        time_t gpsv_ts;
+        float gps_lat;
+        float gps_lon;
+    } GPS_value;
+
+    typedef struct {
+        GPS_value *first;
+        GPS_value *last;
+    } GPS_vallist;
 
     char *cmd_description(t_obdcmdcode cmd);
     void obdparameter(FILE *fp);
@@ -101,11 +115,11 @@ extern "C" {
     void vehicle(FILE *fp, char *VIN);
     void drives(FILE *fp, char *VIN, int PId);
     void track(FILE *fp, char *VIN, int PId);
-    int gps_data(FILE *fp);
+    void gps_sample(FILE *fp, GPS_value *value);
     int cmd_fields(t_obdcmdcode cmd);
     void read_timeout(int sig);
     void sample(char *buffer, FILE *fp, int parameter, OBD_value *value);
-    int openOBD_port();
+    int openOBD_port(char *portname);
     int write_port(int fd, char *buffer, int l);
     int write_atmsg(int fd, char *msg);
     int write_obdmsg(int fd, char *msg);
@@ -115,6 +129,7 @@ extern "C" {
     int read_VINmsg(int fd, char *vinstring, int l, int timeout);
     int sync_protocol(int fd);
     OBD_value *obd_newvalue();
+    GPS_value *gps_newvalue();
     void obd_appendvalue(OBD_vallist *list, OBD_value *value);
     int hex2int(char *answer);
     int separate_string(char *answer, unsigned int *Cack, unsigned int *A, unsigned int *B, unsigned int *C, unsigned int *D);
@@ -122,6 +137,7 @@ extern "C" {
     int separate_MULTstring(char *multstring, unsigned int *Cack, unsigned int mult[]);
     //int read_parameter(int fd, int pid, char *answer, OBD_value *value);
     int read_MULTparameter(int fd, int pid[], char *answer, OBD_value *value[], int w);
+    void gps_collect(struct gps_data_t gpsdata, GPS_value *value[], int w);
 
 #ifdef __cplusplus
 }
