@@ -4,8 +4,8 @@
  *
  * Created on 28 de abril de 2016, 16:28
  * 
- * This library implements basic functions to dialog with the LM327 with the
- * required protocol.
+ * This library implements basic functions to dialog with the LM327 and GPS with
+ * the required protocol.
  * 
  */
 #ifndef LM327COMLIB_H
@@ -47,7 +47,7 @@ extern "C" {
 
 #include "OBDparameters.h"
 #include "gps.h"
-    
+
 #define HEXLENGTH 32
 #define ATMSGLEN 500
 #define OBDMSGLEN 500
@@ -110,7 +110,7 @@ extern "C" {
 
     char *cmd_description(t_obdcmdcode cmd);
     void obdparameter(FILE *fp);
-    //int model(FILE *fp, int fd, char *MVIN);
+    int model(FILE *fp, int fd, char *MVIN);
     int person(FILE *fp);
     void vehicle(FILE *fp, char *VIN);
     void drives(FILE *fp, char *VIN, int PId);
@@ -131,11 +131,10 @@ extern "C" {
     OBD_value *obd_newvalue();
     GPS_value *gps_newvalue();
     void obd_appendvalue(OBD_vallist *list, OBD_value *value);
-    int hex2int(char *answer);
     int separate_string(char *answer, unsigned int *Cack, unsigned int *A, unsigned int *B, unsigned int *C, unsigned int *D);
     int separate_VINstring(char *answer, unsigned int *Cack, char *vinstring);
     int separate_MULTstring(char *multstring, unsigned int *Cack, unsigned int mult[]);
-    //int read_parameter(int fd, int pid, char *answer, OBD_value *value);
+    int read_parameter(int fd, int pid, char *answer, OBD_value *value);
     int read_MULTparameter(int fd, int pid[], char *answer, OBD_value *value[], int w);
     void gps_collect(struct gps_data_t gpsdata, GPS_value *value[], int w);
 

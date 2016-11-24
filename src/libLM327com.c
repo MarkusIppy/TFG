@@ -71,12 +71,14 @@ extern "C" {
     }
 
     /* Allocates memory for new OBD_value struct.
+     * No return value.
      */
     OBD_value *obd_newvalue() {
         return (OBD_value *) malloc(sizeof (OBD_value));
     }
-    
+
     /* Allocates memory for new GPS_value struct.
+     * No return value.
      */
     GPS_value *gps_newvalue() {
         return (GPS_value *) malloc(sizeof (GPS_value));
@@ -86,6 +88,7 @@ extern "C" {
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
+     * No return value.
      */
     void obdparameter(FILE *fp) {
         int i;
@@ -105,7 +108,7 @@ extern "C" {
      *              0 : Everything went as desired.
      *              -1 : Something went wrong. 
      */
-    /*int model(FILE *fp, int fd, char *VIN) {
+    int model(FILE *fp, int fd, char *VIN) {
         int n, MCC = 1598, MWeight = 1286, MHP = 105;
         char MFuel = 'D', MEngine[20] = "4CILINDERS";
         char MVIN[MAX_ANSWER];
@@ -128,7 +131,6 @@ extern "C" {
         }
         return 0;
     }
-     */
 
     /* Prints text code of PERSON table for the database.
      * Arguments:
@@ -138,8 +140,8 @@ extern "C" {
      *              PId: Identificator of the person.
      */
     int person(FILE *fp) {
-        int PId = 999;
-        char PName[20] = "JUAN";
+        int PId = 999; //TO DO Generar números aleatorios
+        char PName[20] = "John";
 
         fprintf(fp, "INSERT INTO PERSON (PId, PName) VALUES (%d, \"%s\");\n", PId, PName);
         return PId;
@@ -149,10 +151,8 @@ extern "C" {
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
-     *              fd: file descriptor to write in.
-     * Return value:
-     *              0 : Everything went as desired.
-     *              -1 : Something went wrong.
+     *              VIN: buffer for the VIN.
+     * No return value.
      */
     void vehicle(FILE *fp, char *VIN) {
         fprintf(fp, "INSERT INTO VEHICLE (VVIN, MVIN) VALUES (\"%s\", \"%s\");\n", VIN, VIN);
@@ -162,10 +162,9 @@ extern "C" {
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
-     *              fd: file descriptor to write in.
-     * Return value:
-     *              0 : Everything went as desired.
-     *              -1 : Something went wrong.
+     *              PId: PId of the driver.
+     *              VIN: buffer for the VIN.
+     * No return value.
      */
     void drives(FILE *fp, char *VIN, int PId) {
         fprintf(fp, "INSERT INTO Drives (PId, VVIN) VALUES (%d, \"%s\");\n", PId, VIN);
@@ -175,10 +174,9 @@ extern "C" {
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
-     *              fd: file descriptor to write in.
-     * Return value:
-     *              0 : Everything went as desired.
-     *              -1 : Something went wrong.
+     *              PId: PId of the driver.
+     *              VIN: buffer for the VIN.
+     * No return value.
      */
     void track(FILE *fp, char *VIN, int PId) {
         int TId = 100, TDistance, TArea, TInitPos, TPolyLine;
@@ -188,12 +186,12 @@ extern "C" {
         fprintf(fp, "INSERT INTO TRACK (TId, TInitDate, TInitHour, TInitSec, TDistance, TArea, TPolyLine, PId, VVIN) VALUES (%d, %d-%d-%d, %d:%d:%d, %ld, %d, %d, %d, %d, \"%s\");\n", TId, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, TInitSec, TDistance, TArea, TPolyLine, PId, VIN);
     }
 
-    /* Prints text code of GPS DATA table for the database.
+    /* Prints text code of GPS SAMPLE table for the database.
      * Arguments:
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
-     * Return value:
-     *              GPSTs : Timestamp of the GPS data.
+     *              value: pointer to a GPS_value struct with GPS data.
+     * No return value.
      */
     void gps_sample(FILE *fp, GPS_value *value) {
         fprintf(fp, "INSERT INTO GPS_DATA (GPSTs, GPSLongitude, GPSLatitude) VALUES (%ld, %f, %f);\n", value->gpsv_ts, value->gps_lon, value->gps_lat);
@@ -217,17 +215,18 @@ extern "C" {
     }
 
     /* This function is a handler of the alarm if timeout happens.
+     * No return value.
      */
     void read_timeout(int sig) {
     }
 
-    /* This function prints the information with a timestamp of the current time
-     * and date in a text file.
+    /* Prints text code of SAMPLE table for the database.
      * Arguments: 
      *              buffer: pointer to the buffer where the information is.
      *              fp: This is the pointer to a FILE object that identifies the
      *                  stream.
      *              parameter: number of the desired parameter.
+     *              value: pointer to an OBD_value struct with OBD data.
      * No return value.
      */
     void sample(char *buffer, FILE *fp, int parameter, OBD_value *value) {
@@ -251,7 +250,9 @@ extern "C" {
         //fprintf(fp, "{\"Pname\":\"%s\",\"INTvalue\":%d,\"FLOATvalue\":%f,\"CHARvalue\":\"%s\",\"Ts\":%ld},\n", obd_parameters[parameter].obdp_parname, value->obdv_value.i, value->obdv_value.w, value->obdv_value.str, value->obdv_ts);
     }
 
-    /* This function opens the OBD BT port of the car. It has no arguments. 
+    /* This function opens the OBD BT port of the car. 
+     * Arguments:
+     *                  portname: pointer to the path of the port
      * Return value:
      *                  fd: file descriptor.
      *                  OBD_PORT: error while opening port.
@@ -419,28 +420,24 @@ extern "C" {
 
         while (1) {
             r = read_port(fd, &(buffer[i]), 1, timeout);
-            /* Check if read returned an error after reading some characters and 
-             * return the partial line */
+            // Check if read returned an error after reading some characters and return the partial line
             if (r < 0 && i > 0) {
                 buffer[i] = 0;
                 break;
             }
-            /* Check if read returned an error with an empty buffer */
+            // Check if read returned an error with an empty buffer
             if (r < 0) {
 #if DEBUGLEVEL
                 fprintf(stderr, "DEBUG::read_msg, PORTRESULT = %d\n", r);
 #endif
                 return r;
             }
-            /* We read one new character */
-            /* If we receive EOL or > at the beginning of a line or a NULL character
-             * then ignore it and go on reading characters */
+            // We read one new character If we receive EOL or > at the beginning of a line or a NULL character then ignore it and go on reading characters
             if (((buffer[i] == LM327_EOL || buffer[i] == '>') && i == 0) || buffer[i] == 0) { //TODO creo que sobra la segunda condición
                 buffer[i] = 0;
                 continue;
             }
-            /* A NL character marks the end of the message. Overwrite it with a zero
-             * and return the message */
+            // A NL character marks the end of the message. Overwrite it with a zero and return the message
             if (buffer[i] == LM327_EOL) {
                 buffer[i] = 0;
                 break;
@@ -454,10 +451,9 @@ extern "C" {
     }
 
     /* 
-     * Reads input from OBD until first NL when VIN is asked, removing it from 
-     * the string and adding a zero at the end.
-     * This function goes byte by byte cleaning the output information for a better
-     * output. 
+     * Reads input from OBD when VIN is asked, removing it from the string and 
+     * adding a zero at the end. This function goes byte by byte cleaning the 
+     * output information for a better output. 
      * Arguments: 
      *              fd: Open file descriptor to read from.
      *              vinstring: pointer of the string in which to store the information.
@@ -494,10 +490,9 @@ extern "C" {
     }
 
     /* 
-     * Reads input from OBD until first NL when multiple PID are asked, removing
-     * it from the string and adding a zero at the end.
-     * This function goes byte by byte cleaning the output information for a better
-     * output. 
+     * Reads input from OBD when multiple PID are asked, removing it from the 
+     * string and adding a zero at the end. This function goes byte by byte 
+     * cleaning the output information for a better output. 
      * Arguments: 
      *              fd: Open file descriptor to read from.
      *              multstring: pointer of the string in which to store the information.
@@ -547,7 +542,7 @@ extern "C" {
         char answer[MAX_ANSWER];
         int n = -1;
 
-        /* Empty input channel */
+        // Empty input channel 
 #if DEBUGLEVEL
         fprintf(stderr, "DEBUG::sync_protocol, starting to clean input\n");
 #endif
@@ -579,27 +574,17 @@ extern "C" {
         return n;
     }
 
-    //    OBD_vallist *obd_createlist() {
-    //        return (OBD_vallist*) malloc(sizeof (OBD_vallist));
-    //    }
-
     /* 
-     * Shifts to next struct of a list.
+     * Shifts to next struct of a list. 
+     * Arguments:
+     *              list: pointer to a OBD_vallist structure of a data list
+     *              value: pointer to a OBD_value structure of OBD data
+     * No return value
      */
     void obd_appendvalue(OBD_vallist *list, OBD_value *value) {
         list->last = value;
         list->last->next = value;
         value->next = NULL;
-    }
-
-    /* This function converts a hexadecimal string not starting with 0x into an
-     * integer in decimal value.
-     * Arguments:
-     *              answer: the hexadecimal string.
-     * No return value.
-     */
-    int hex2int(char *answer) {
-        return ((int) strtol(answer, NULL, 16));
     }
 
     /* This function separates the hexadecimal string given by the OBD and
@@ -686,7 +671,7 @@ extern "C" {
      *              fd: file descriptor.
      *              i: number of the desired parameter.
      *              answer: where the final value is going to be stored.
-     *              value: an OBD_value struct.
+     *              value: a pointer to a OBD_value structure with OBD data.
      * Return value:
      *              r: characters read not including EOL nor final zero.
      *              n: number of bytes written.
@@ -698,8 +683,7 @@ extern "C" {
      *              OBD_FIELDS: Error when getting the answer.
      *              OBD_COMMAND: Error matching answer with command.
      */
-
-    /*int read_parameter(int fd, int i, char *answer, OBD_value *value) {
+    int read_parameter(int fd, int i, char *answer, OBD_value *value) {
         unsigned int n, r, A, B, C, D, commandACK;
         char buffer[HEXLENGTH], vinstring[OBDV_MAXSTR];
         int fields;
@@ -819,8 +803,28 @@ extern "C" {
         }
         return r;
     }
-     */
 
+    /* This function takes the command which you want to know the information
+     * from, writes it into the OBD, reads the answer, translates it into human
+     * readable information.
+     * Arguments:
+     *              fd: file descriptor.
+     *              pid: an array with desired PID.
+     *              answer: where the final value is going to be stored.
+     *              value: a pointer to array of a OBD_value structure with OBD 
+     *                     data.
+     *              w: counter for the loop.
+     * Return value:
+     *              r: characters read not including EOL nor final zero.
+     *              n: number of bytes written.
+     *              OBD_EMPTY: non block input returned inmediately when using non 
+     *                         blocking input.
+     *              OBD_CLOSED: fd is closed.
+     *              OBD_TIMEOUT: blocking input didn't answer before specified timeout.
+     *              OBD_ERROR: other errors.
+     *              OBD_FIELDS: Error when getting the answer.
+     *              OBD_COMMAND: Error matching answer with command.
+     */
     int read_MULTparameter(int fd, int pid[], char *answer, OBD_value *value[], int w) {
         unsigned int i, j = 0, n, r, commandACK, status;
         char buffer[HEXLENGTH];
@@ -844,7 +848,7 @@ extern "C" {
             for (i = 0; i <= 5; i++) {
                 if (obd_parameters[pid[i]].obdp_code != letters[j]) {
                     perror("read_parameter: error matching command with answer\n");
-                    printf("code: %d  command: %u y letters: %u i = %d j = %u \n", obd_parameters[pid[i]].obdp_code, commandACK, letters[j], i, j);
+                    printf("code: %d  command: %u y letters: %u i = %u j = %u \n", obd_parameters[pid[i]].obdp_code, commandACK, letters[j], i, j);
                     return OBD_COMMAND;
                 }
                 value[w] = obd_newvalue();
@@ -936,15 +940,23 @@ extern "C" {
         return r;
     }
 
+    /* This function collects and stores the gps data into a structure
+     * Arguments:
+     *              gpsdata: a gps_data_t structure with GPS data.
+     *              value: a pointer to an array of GPS_value structure with GPS
+     *                     data.
+     *              w: counter for the loop.
+     * No return value.
+     */
     void gps_collect(struct gps_data_t gpsdata, GPS_value *value[], int w) {
         struct timespec gps_pause;
         struct timeval current_time;
         gps_pause.tv_sec = 0;
         gps_pause.tv_nsec = 250000000;
-        
+
         value[w] = gps_newvalue();
         (void) gps_read(&gpsdata);
-        if (value[w]->next == NULL){
+        if (value[w]->next == NULL) {
             value[w]->gps_lat = gpsdata.fix.latitude;
             value[w]->gps_lon = gpsdata.fix.longitude;
             value[w]->gpsv_ts = time(NULL);
